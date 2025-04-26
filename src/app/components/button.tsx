@@ -1,15 +1,43 @@
+//if we want one prop for border radius
 import React from "react";
 
+type ButtonProps = {
+  borderRadius: {
+    topLeft: number;
+    topRight: number;
+    bottomLeft: number;
+    bottomRight: number;
+  };
 
+  backgroundColor: string;
+};
+
+export default function Button({ borderRadius,backgroundColor }: ButtonProps) {
+  //style object as a prop
+  return (
+    <div className="flex justify-center items-center h-screen">
+      <button
+        style={{
+          borderRadius: `${borderRadius.topLeft}px ${borderRadius.topRight}px ${borderRadius.bottomLeft}px ${borderRadius.bottomRight}px`, backgroundColor
+        }}
+      >
+        Click me
+      </button>
+    </div>
+  );
+}
+
+//part6
+{
+  /*
+  //if we have hundred of properties, defining them like part 5 is so time consuming. So we use some types that we get from react: React.CSSProperties
+import React from "react";
 
 type ButtonProps = {
-  style:{
-  backgroundColor: string;
-  fontSize: number;
-  textColor: string;
-}};
+  style: React.CSSProperties; //react specify object for us
+  };
 
-export default function Button({ style }: ButtonProps) { //style object
+export default function Button({ style }: ButtonProps) { //style object as a prop
   return (
     <div className="flex justify-center items-center h-screen">
       <button
@@ -20,9 +48,36 @@ export default function Button({ style }: ButtonProps) { //style object
     </div>
   );
 }
+  */
+}
+
+//part5
+{
+  /*
+  import React from "react";
+
+type ButtonProps = {
+  style:{
+  backgroundColor: string;
+  fontSize: number;
+  textColor: string;
+}};
+
+export default function Button({ style }: ButtonProps) { //style object as a prop
+  return (
+    <div className="flex justify-center items-center h-screen">
+      <button
+        style={style}
+      >
+        Click me
+      </button>
+    </div>
+  );
+}
+  */
+}
 
 //part4
-
 {
   /*
   import React from "react";
