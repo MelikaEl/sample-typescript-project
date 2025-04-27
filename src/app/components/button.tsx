@@ -1,12 +1,85 @@
-//you can have prop with defaqult value and we don't need to give it type, because when you hover on that typescript caqn infer the type of the prop
-import React from 'react'
+
+
+//part 15
+//use the default attributes
+
+import React from "react";
+
+type ButtonProps = {
+  type?: "button" | "submit" | "reset"; //default value is button
+  autoFocus?: boolean; //default value is false
+};
+
+export default function Button({type , autoFocus}:ButtonProps) {
+  return (
+    <div className="flex justify-center items-center h-screen">
+      <button type={type}  autoFocus={autoFocus}>Click Me!</button>
+    </div>
+  );
+}
+
+
+
+
+
+
+
+
+
+//part14
+//difference between interface and type alias
+{/*import React from "react";
+
+
+//In both type and interface, we can define the shape of an object.
+
+// type ButtonProps = {
+//   text:string;
+//   count:number;
+// };
+
+
+// interface ButtonProps {
+//   text: string; //text prop
+//   count: number; //count prop   
+// }
+
+
+//with interface you can only define objects. For example in this URL example, we can't use the interface
+// type  URL = string; 
+// const url : URL = 'https://example.com';
+
+
+//you can define union types just with type alias not interface
+// type Color = "red" | "blue" | "green" | "yellow" | "purple";
+
+
+
+
+
+export default function Button(props: ButtonProps) {
+  return (
+    <div className="flex justify-center items-center h-screen">
+      <button>click me</button>
+    </div>
+  );
+}
+  */}
+
+
+
+
+
+//part13
+//you can have prop with defaqult value and we don't need to give it type, because when you hover on that typescript caqn infer the type of the prop. If you have default values, you don't need to specify the type
+{/*import React from 'react'
 
 export default function button({count=0}) {
   return (
     <div>button</div>
   )
 }
-
+*/}
 
 
 

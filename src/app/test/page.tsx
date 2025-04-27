@@ -1,3 +1,26 @@
+
+//part 15
+//use the default attributes
+import React from "react";
+import Button from "../components/button";
+
+
+export default function page() {
+ 
+  return (
+    <div>
+      {" "}
+      <Button type="submit" autoFocus={true}/>
+    </div>
+  );
+}
+
+
+
+
+
+
+
 //part 12
 {/*'use client';
 import { useState } from 'react';
