@@ -1,8 +1,48 @@
 //from part 15
 
+//part 
+
+
+
+
+
+//part 21
+// event handlers: onChange, onSubmit, onClick
+
+{/*import React from "react";
+
+export default function Button() {
+  return (
+    //when we hover on the e parameter, it shows us the type of the event :
+    // React.MouseEvent<HTMLButtonElement, MouseEvent>
+    //typescript can infers the type of the event 
+    <button onClick={(e) => console.log("Button clicked!")}>Click Me!</button>
+
+  );
+}
+  */}
+
+{/*import React from "react";
+
+export default function Button() {
+  //here when we hover on the e parameter, it can't infer the type of it, because we can use this function elsewhere and typescript can't realize that we only use the function for the event handler, so we should define the type of it here.
+  const handleClick = (e : React.MouseEvent<HTMLButtonElement, MouseEvent>) => 
+    e.preventDefault(); //to prevent the default behavior of the button, which is to submit a form or refresh the page
+    console.log("Button clicked!") 
+  return (
+    <button onClick={handleClick}>Click Me!</button>
+  );
+}
+  */}
+
+
+
+
+
 //part 20
 // with interface we do the same thing as part 19 but with extend
-import React from "react";
+{
+  /*import React from "react";
 
 interface ButtonProps  {
   type: "button" | "submit" | "reset"; 
@@ -35,12 +75,13 @@ export default function SuperButton(props: SuperButtonProps) {
     </div>
   );
 }
-
-
+  */
+}
 
 //part 19
 // if we have another component and want to define props for that component too but it has the props of the previous component too.
-{/*import React from "react";
+{
+  /*import React from "react";
 
 type ButtonProps = {
   type: "button" | "submit" | "reset"; 
@@ -73,23 +114,17 @@ export default function SuperButton(props: SuperButtonProps) {
     </div>
   );
 }
-  */}
-
- 
-
- 
-
-
-
-
+  */
+}
 
 //part 18
-{/*import React, {  ComponentPropsWithoutRef } from "react";
+{
+  /*import React, {  ComponentPropsWithoutRef } from "react";
 
 type ButtonProps = ComponentPropsWithoutRef<"button"> & {
   variant?: "primary" | "secondary"; //variant prop
 }
-// with ComponentPropsWithoutRef, we accept all the attributes that the button element accepts, and nothing else. If want to pass a prop that is not a button attribute, we use & (ampersand).
+// with ComponentPropsWithoutRef, we accept all the attributes that the button element accepts, and nothing else. If want to pass a prop that is not a button attribute, we use & (ampersand) that is called intersecting.
 
 
 export default function Button(props: ButtonProps) {
@@ -101,13 +136,8 @@ export default function Button(props: ButtonProps) {
     </div>
   );
 }
-  */}
-
-
-
-
-
-
+  */
+}
 
 //part 17
 //when we hover on the ComponentProps, it says that it's better to use the "ComponentPropsWithRef" or "ComponentPropsWithoutRef" instead of "ComponentProps". In the part 16 , is better to use the "ComponentPropsWithoutRef"
@@ -115,7 +145,8 @@ export default function Button(props: ButtonProps) {
 // forwardRef: A React function that allows your component to accept a ref prop and forward it to a child component or DOM element.
 // ComponentPropsWithRef: A TypeScript utility type that extracts the props of a component (or element) including the ref prop.
 
-{/*import React, { forwardRef, ComponentPropsWithRef } from "react";
+{
+  /*import React, { forwardRef, ComponentPropsWithRef } from "react";
 
 type ButtonProps = ComponentPropsWithRef<"button">;
 // It represents all the props that a native <button> element accepts including the ref.
@@ -142,10 +173,8 @@ Button.displayName = "Button";
 // When using forwardRef, React components don't automatically get a displayName, which makes debugging and React DevTools less clear.
 // Setting displayName explicitly helps identify the component in DevTools and improves error messages.
 
-export default Button;*/}
-
-
-
+export default Button;*/
+}
 
 //part 16
 //if we have hundreds of these attributes, and we don't want to pass all of them individually one by one, so we can use a helper type called Component.Props and in the <> (anchor tag) we define which element it should be. In TypeScript, you can use the ComponentProps utility type from React to get the props type of a specific component or element, such as a <button>.
