@@ -1,8 +1,46 @@
 //from part 15
 
+//part 20
+// with interface we do the same thing as part 19 but with extend
+import React from "react";
+
+interface ButtonProps  {
+  type: "button" | "submit" | "reset"; 
+  autoFocus?: boolean; //default value is false
+}
+
+interface SuperButtonProps extends ButtonProps {
+  size: "small" | "medium" | "large"; 
+}
+
+function Button(props: ButtonProps) {
+  return (
+    <div className="flex justify-center items-center h-screen">
+      <button  {...props}>
+        Click Me!
+       </button>
+    </div>
+  );
+}
+
+export default function SuperButton(props: SuperButtonProps) {
+  return (
+    <div className="flex justify-center items-center h-screen">
+      <button {...props}>
+       second button
+       </button>
+       
+       <Button {...props}/>
+       
+    </div>
+  );
+}
+
+
+
 //part 19
 // if we have another component and want to define props for that component too but it has the props of the previous component too.
-import React from "react";
+{/*import React from "react";
 
 type ButtonProps = {
   type: "button" | "submit" | "reset"; 
@@ -35,6 +73,7 @@ export default function SuperButton(props: SuperButtonProps) {
     </div>
   );
 }
+  */}
 
  
 

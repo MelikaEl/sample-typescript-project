@@ -1,7 +1,14 @@
 "use client";
 
-//part 19
-import React from "react";
+//part 21
+
+
+
+
+
+
+//part 19 , 20
+{/*import React from "react";
 import SuperButton from "../components/button";
 
 
@@ -14,7 +21,7 @@ export default function page() {
     </div>
   );
 }
-
+*/}
 
 
 
