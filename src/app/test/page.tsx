@@ -2,18 +2,22 @@
 
 //part 17
 import React, { useRef } from "react";
-
-// Your Button component (assuming it forwards ref properly)
 import Button from "../components/button";
 
 export default function MyComponent() {
   const buttonRef = useRef<HTMLButtonElement>(null);
+//   Creates a ref object called buttonRef.
+// The type <HTMLButtonElement> tells TypeScript that this ref will point to a DOM <button> element.
+// The initial value is null because the button isn't mounted yet.
 
   const handleClick = () => {
     if (buttonRef.current) {
       buttonRef.current.focus(); // Focus the button
     }
   };
+//   Defines a function handleClick.
+// When invoked, it checks if buttonRef.current exists (i.e., the button is mounted).
+// If so, it calls .focus() on the button DOM node, moving keyboard focus to it.
 
   return (
     <div style={{ padding: "20px" }}>

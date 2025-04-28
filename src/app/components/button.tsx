@@ -2,14 +2,41 @@
 
 //part 17
 //when we hover on the ComponentProps, it says that it's better to use the "ComponentPropsWithRef" or "ComponentPropsWithoutRef" instead of "ComponentProps". In the part 16 , is better to use the "ComponentPropsWithoutRef"
+
+// forwardRef: A React function that allows your component to accept a ref prop and forward it to a child component or DOM element.
+// ComponentPropsWithRef: A TypeScript utility type that extracts the props of a component (or element) including the ref prop.
+
 import React, { forwardRef, ComponentPropsWithRef } from "react";
 
 type ButtonProps = ComponentPropsWithRef<"button">;
+// It represents all the props that a native <button> element accepts including the ref.
+// Essentially, ButtonProps now includes:
+// Standard button attributes like onClick, type, disabled, etc.
+// The ref property, which is typed as React.Ref<HTMLButtonElement>.
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => (
   <button ref={ref} {...props} />
 ));
+// forwardRef: Wraps a functional component to allow it to accept a ref prop.
+// Type parameters:
+// <HTMLButtonElement, ButtonProps>:
+// HTMLButtonElement: The type of the DOM node the ref will point to.
+// ButtonProps: The props the component accepts.
+// Function parameters:
+// (props, ref):
+// props: All the props passed to the component (like onClick, type, etc.).
+// ref: The ref object passed from the parent, which will be attached to the <button> element.
+// Component body:
+// Returns a <button> element.
+// ref={ref}: Attaches the forwarded ref to the DOM <button>.
+// {...props}: Spreads all other props onto the <button>.
+// This creates a ref-forwarding button component that behaves like a normal <button> but can be referenced directly via a ref.
+
 Button.displayName = 'Button';
+// Why?:
+// When using forwardRef, React components don't automatically get a displayName, which makes debugging and React DevTools less clear.
+// Setting displayName explicitly helps identify the component in DevTools and improves error messages.
+
 export default Button;
 
 
