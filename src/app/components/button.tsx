@@ -1,18 +1,85 @@
 //from part 15
 
+//part 19
+// if we have another component and want to define props for that component too but it has the props of the previous component too.
+import React from "react";
+
+type ButtonProps = {
+  type: "button" | "submit" | "reset"; 
+  autoFocus?: boolean; //default value is false
+}
+
+type SuperButtonProps = ButtonProps & {
+  size: "small" | "medium" | "large"; 
+}
+
+function Button(props: ButtonProps) {
+  return (
+    <div className="flex justify-center items-center h-screen">
+      <button  {...props}>
+        Click Me!
+       </button>
+    </div>
+  );
+}
+
+export default function SuperButton(props: SuperButtonProps) {
+  return (
+    <div className="flex justify-center items-center h-screen">
+      <button {...props}>
+       second button
+       </button>
+       
+       <Button {...props}/>
+       
+    </div>
+  );
+}
+
+ 
+
+ 
+
+
+
+
+
+//part 18
+{/*import React, {  ComponentPropsWithoutRef } from "react";
+
+type ButtonProps = ComponentPropsWithoutRef<"button"> & {
+  variant?: "primary" | "secondary"; //variant prop
+}
+// with ComponentPropsWithoutRef, we accept all the attributes that the button element accepts, and nothing else. If want to pass a prop that is not a button attribute, we use & (ampersand).
+
+
+export default function Button(props: ButtonProps) {
+  return (
+    <div className="flex justify-center items-center h-screen">
+      <button {...props}>
+        Click Me!
+       </button>
+    </div>
+  );
+}
+  */}
+
+
+
+
+
+
+
 //part 17
 //when we hover on the ComponentProps, it says that it's better to use the "ComponentPropsWithRef" or "ComponentPropsWithoutRef" instead of "ComponentProps". In the part 16 , is better to use the "ComponentPropsWithoutRef"
 
 // forwardRef: A React function that allows your component to accept a ref prop and forward it to a child component or DOM element.
 // ComponentPropsWithRef: A TypeScript utility type that extracts the props of a component (or element) including the ref prop.
 
-import React, { forwardRef, ComponentPropsWithRef } from "react";
+{/*import React, { forwardRef, ComponentPropsWithRef } from "react";
 
 type ButtonProps = ComponentPropsWithRef<"button">;
 // It represents all the props that a native <button> element accepts including the ref.
-// Essentially, ButtonProps now includes:
-// Standard button attributes like onClick, type, disabled, etc.
-// The ref property, which is typed as React.Ref<HTMLButtonElement>.
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => (
   <button ref={ref} {...props} />
@@ -30,15 +97,13 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => (
 // Returns a <button> element.
 // ref={ref}: Attaches the forwarded ref to the DOM <button>.
 // {...props}: Spreads all other props onto the <button>.
-// This creates a ref-forwarding button component that behaves like a normal <button> but can be referenced directly via a ref.
 
-Button.displayName = 'Button';
+Button.displayName = "Button";
 // Why?:
 // When using forwardRef, React components don't automatically get a displayName, which makes debugging and React DevTools less clear.
 // Setting displayName explicitly helps identify the component in DevTools and improves error messages.
 
-export default Button;
-
+export default Button;*/}
 
 
 

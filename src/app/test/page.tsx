@@ -1,7 +1,44 @@
 "use client";
 
+//part 19
+import React from "react";
+import SuperButton from "../components/button";
+
+
+export default function page() {
+ 
+  return (
+    <div>
+      {" "}
+      <SuperButton type="submit" size="large" autoFocus={true}/>
+    </div>
+  );
+}
+
+
+
+
+
+
+//part 18
+{/*import React from "react";
+import Button from "../components/button";
+
+
+export default function page() {
+ 
+  return (
+    <div>
+      {" "}
+      <Button variant="secondary" type="submit" autoFocus={true} disabled={false} name="button" title="click me"/>
+    </div>
+  );
+}
+  */}
+
+
 //part 17
-import React, { useRef } from "react";
+{/*import React, { useRef } from "react";
 import Button from "../components/button";
 
 export default function MyComponent() {
@@ -21,28 +58,29 @@ export default function MyComponent() {
 
   return (
     <div style={{ padding: "20px" }}>
-      {/* Button that will be focused */}
+    
       <Button ref={buttonRef} onClick={handleClick} style={{ padding: "10px 20px" }}>
         Click to focus me
       </Button>
 
-      {/* Instruction text */}
+      
       <p>Click the button, then see the focus outline appear.</p>
 
-      {/* Additional style for focus effect */}
+    
       <style>
         {`
-          /* Add a visual focus style for the button */
+          
           button:focus {
-            outline: 3px solid blue; /* Blue outline when focused */
+            outline: 3px solid blue; 
             outline-offset: 4px;
-            background-color: #eef; /* Optional: change background color on focus */
+            background-color: #eef;
           }
         `}
       </style>
     </div>
   );
 }
+  */}
 
 
 
