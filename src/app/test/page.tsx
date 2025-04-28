@@ -1,7 +1,26 @@
+"use client";
+// part 16;
+import React from "react";
+import Button from "../components/button";
+
+
+export default function page() {
+ 
+  return (
+    <div>
+      {" "}
+      <Button type="submit" autoFocus={true} disabled={false} name="button" title="click me"/>
+    </div>
+  );
+}
+
+
+
 
 //part 15
 //use the default attributes
-import React from "react";
+{
+  /*import React from "react";
 import Button from "../components/button";
 
 
@@ -13,118 +32,100 @@ export default function page() {
       <Button type="submit" autoFocus={true}/>
     </div>
   );
+}*/
 }
-
-
-
-
-
-
 
 //part 12
-{/*'use client';
-import { useState } from 'react';
-import Button from '../components/button';
+// 'use client';
+// import { useState } from 'react';
+// import Button from '../components/button';
 
-export default function Home() {
-  const [count, setCount] = useState<number>(0);
+// export default function Home() {
+//   const [count, setCount] = useState<number>(0);
   
-  return (
-    <main>
-      <h1 className="text-2xl text-center mb-4">Count: {count}</h1>
-      <Button setCount={setCount} />
-    </main>
-  );
-}*/}
+//   return (
+//     <main>
+//       <h1 className="text-2xl text-center mb-4">Count: {count}</h1>
+//       <Button setCount={setCount} />
+//     </main>
+//   );
+// }
 
 //part 11
-{
-  /*
-import React from "react";
-import Button from "../components/button";
 
+// import React from "react";
+// import Button from "../components/button";
 
-export default function page() {
- 
-  return (
-    <div>
-      {" "}
-      <Button><div></div></Button>
-      {/* <Button><span>Click me!!!</span></Button> */
-}
-{
-  /* <Button><i></i></Button> */
-}
-{
-  /* <Button>click</Button>*/
-}
-{
-  /*it throws error because of the text is string not a jsx element */
-}
-// </div>
-// )}
-
-//part10
-{
-  /*import React from "react";
-import Button from "../components/button";
-
-
-export default function page() {
-  // const icon = <i></i>;
- 
-  return (
-    <div>
-      {" "}
-      <Button>Click me!!!</Button>
-      {/* <Button><></></Button>*/
-}
-{
-  /*it gives jsx element and t doesn't throw any error because it is the type of react.node */
-}
-{
-  /* <Button><div></div></Button> */
-}
-{
-  /* it accepts JSX element because of react.node*/
-}
-{
-  /* <Button><span>Click me!!!</span></Button> */
-}
-{
-  /* <Button>{icon}</Button>*/
-}
-{
-  /*it accepts JSX element because of react.node */
-}
-
+// export default function page() {
+//   return (
+//     <div>
+//       {" "}
+      {/* <Button>
+        <div></div>
+      </Button> */}
+      {/* <Button><span>Click me!!!</span></Button> */}
+      {/* <Button><i></i></Button> */}
+      {/* <Button>click</Button> */}
+      {/*it throws error because of the text is string not a jsx element */}
 //     </div>
 //   );
 // }
 
-{
-  /*"use client";
+//part10
+// import React from "react";
+// import Button from "../components/button";
+
+
+// export default function page() {
+//    const icon = <i></i>;
+ 
+//   return (
+//     <div>
+//       {" "}
+//       {/* <Button>Click me!!!</Button> */}
+//        {/* <Button><></></Button> */}
+
+// {
+//   /*it gives jsx element and t doesn't throw any error because it is the type of react.node */
+// }
+// {
+//   /* <Button><div></div></Button> */
+// }
+// {
+//   /* it accepts JSX element because of react.node*/
+// }
+// {
+//   /* <Button><span>Click me!!!</span></Button> */
+// }
+// {
+//    <Button>{icon}</Button>
+// }
+// {
+//   /*it accepts JSX element because of react.node */
+// }
+
+//      </div>
+//    );
+//  }
+
 //part9
 //onClick function
-import React from "react";
-import Button from "../components/button";
+// import React from "react";
+// import Button from "../components/button";
 
-
-export default function page() {
-  const onClick = () => {
-    console.log("Button clicked");
-  };
-  return (
-    <div>
-      {" "}
-      <Button
-        onClick={onClick}
-      />
-    </div>
-  );
-}
-  */
-}
+// export default function page() {
+//   const onClick = () => {
+//     console.log("Button clicked");
+//   };
+//   return (
+//     <div>
+//       {" "}
+//       <Button
+//         onClick={onClick}
+//       />
+//     </div>
+//   );
+// }
 
 //part8
 //now we can pass any css properties that we want

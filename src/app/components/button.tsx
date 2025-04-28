@@ -1,19 +1,20 @@
+//from part 15
+
+//part 16
+//if we have hundreds of these attributes, and we don't want to pass all of them individually one by one, so we can use a helper type called Component.Props and in the <> (anchor tag) we define which element it should be. In TypeScript, you can use the ComponentProps utility type from React to get the props type of a specific component or element, such as a <button>.
+import React, { ComponentProps } from "react";
+
+type ButtonProps = ComponentProps<"button"> // now we can accept all the attributes that the button element accepts
+// type ButtonProps = ComponentProps<"a"> 
+// type ButtonProps = ComponentProps<""> 
 
 
-//part 15
-//use the default attributes
-
-import React from "react";
-
-type ButtonProps = {
-  type?: "button" | "submit" | "reset"; //default value is button
-  autoFocus?: boolean; //default value is false
-};
-
-export default function Button({type , autoFocus}:ButtonProps) {
+export default function Button(props: ButtonProps) {
   return (
     <div className="flex justify-center items-center h-screen">
-      <button type={type}  autoFocus={autoFocus}>Click Me!</button>
+      <button {...props}>
+        Click Me!
+      </button>
     </div>
   );
 }
@@ -21,15 +22,30 @@ export default function Button({type , autoFocus}:ButtonProps) {
 
 
 
+//part 15
+// use the default attributes
 
+{/*import React from "react";
 
+type ButtonProps = {
+  type?: "button" | "submit" | "reset"; //default value is button
+  autoFocus?: boolean; //default value is false
+};
 
-
+export default function Button({ type, autoFocus }: ButtonProps) {//we need to pass these attributes as props
+  return (
+    <div className="flex justify-center items-center h-screen">
+      <button type={type} autoFocus={autoFocus}>
+        Click Me!
+      </button>
+    </div>
+  );
+}
+  */}
 
 //part14
 //difference between interface and type alias
-{/*import React from "react";
-
+// import React from "react";
 
 //In both type and interface, we can define the shape of an object.
 
@@ -38,52 +54,38 @@ export default function Button({type , autoFocus}:ButtonProps) {
 //   count:number;
 // };
 
-
 // interface ButtonProps {
 //   text: string; //text prop
-//   count: number; //count prop   
+//   count: number; //count prop
 // }
 
-
 //with interface you can only define objects. For example in this URL example, we can't use the interface
-// type  URL = string; 
+// type  URL = string;
 // const url : URL = 'https://example.com';
 
-
 //you can define union types just with type alias not interface
-// type Color = "red" | "blue" | "green" | "yellow" | "purple";
+//  type Color = "red" | "blue" | "green" | "yellow" | "purple";
 
-
-
-
-
-export default function Button(props: ButtonProps) {
-  return (
-    <div className="flex justify-center items-center h-screen">
-      <button>click me</button>
-    </div>
-  );
-}
-  */}
-
-
-
-
+// export default function Button(props: ButtonProps) {
+//   return (
+//     <div className="flex justify-center items-center h-screen">
+//       <button>click me</button>
+//     </div>
+//   );
+// }
 
 //part13
 //you can have prop with defaqult value and we don't need to give it type, because when you hover on that typescript caqn infer the type of the prop. If you have default values, you don't need to specify the type
-{/*import React from 'react'
+{
+  /*import React from 'react'
 
 export default function button({count=0}) {
   return (
     <div>button</div>
   )
 }
-*/}
-
-
-
-
+*/
+}
 
 //part 12
 // The Dispatch<React.SetStateAction<number>> type in your code is a TypeScript type that describes the signature of a state-updating function returned by the useState hook in React.
@@ -93,68 +95,62 @@ export default function button({count=0}) {
 // Or a function that takes the current state (number) and returns a new state (number). For example: setCount((prevCount) => prevCount + 1).
 // Without this type, TypeScript wouldn't know whether setCount accepts a value, a function, or both. Using Dispatch<React.SetStateAction<number>> provides clarity and prevents invalid usage.
 
-{/*import React, { Dispatch } from "react";
+// import React, { Dispatch } from "react";
 
-type ButtonProps = {
-  setCount: Dispatch<React.SetStateAction<number>>; //when we hover on useState in page file it shows us the type of setCount is Dispatch<React.SetStateAction<number>>
-};
+// type ButtonProps = {
+//   setCount: Dispatch<React.SetStateAction<number>>; //when we hover on useState in page file it shows us the type of setCount is Dispatch<React.SetStateAction<number>>
+// };
 
-export default function Button({ setCount }: ButtonProps) {
-  return (
-    <div className="flex justify-center items-center gap-4">
-      <button 
-        className="px-4 py-2 bg-red-500 text-white rounded"
-        onClick={() => setCount(0)}
-      >
-        Reset to 0
-      </button>
-      
-      <button 
-        className="px-4 py-2 bg-blue-500 text-white rounded"
-        onClick={() => setCount(prev => prev + 1)}
-      >
-        Increment
-      </button>
-      
-      <button 
-        className="px-4 py-2 bg-green-500 text-white rounded"
-        onClick={() => setCount(prev => prev - 1)}
-      >
-        Decrement
-      </button>
-      
-      <button 
-        className="px-4 py-2 bg-purple-500 text-white rounded"
-        onClick={() => setCount(100)}
-      >
-        Set to 100
-      </button>
-    </div>
-  );
-}
-  */}
+// export default function Button({ setCount }: ButtonProps) {
+//   return (
+//     <div className="flex justify-center items-center gap-4">
+//       <button
+//         className="px-4 py-2 bg-red-500 text-white rounded"
+//         onClick={() => setCount(0)}
+//       >
+//         Reset to 0
+//       </button>
 
+//       <button
+//         className="px-4 py-2 bg-blue-500 text-white rounded"
+//         onClick={() => setCount(prev => prev + 1)}
+//       >
+//         Increment
+//       </button>
 
+//       <button
+//         className="px-4 py-2 bg-green-500 text-white rounded"
+//         onClick={() => setCount(prev => prev - 1)}
+//       >
+//         Decrement
+//       </button>
+
+//       <button
+//         className="px-4 py-2 bg-purple-500 text-white rounded"
+//         onClick={() => setCount(100)}
+//       >
+//         Set to 100
+//       </button>
+//     </div>
+//   );
+// }
 
 //part11
 //JSX.Element is a TypeScript type that represents a valid JSX element (e.g., <div>, <span>, or custom components).
-{
-  /*
-import React,{ JSX } from "react";
 
-type ButtonProps = {
-  children: JSX.Element; //children prop
-};
+// import React from "react";
 
-export default function Button({children}:ButtonProps) {
-  return (
-    <div className="flex justify-center items-center h-screen">
-      <button>{children}</button>
-    </div>
-  );
-}
-  */
-}
+// type ButtonProps = {
+//   children: React.JSX.Element; //children prop
+// };
+
+// export default function Button({children}:ButtonProps) {
+//   return (
+//     <div className="flex justify-center items-center h-screen">
+//       <button>{children}</button>
+//     </div>
+//   );
+// }
 
 //part10
 // a. Children Prop
@@ -169,46 +165,39 @@ export default function Button({children}:ButtonProps) {
 // Arrays of these types,
 // Or even null or undefined.
 
-{
-  /*import React from "react";
+// import React from "react";
 
-type ButtonProps = {
-  children: React.ReactNode; //children prop
-};
+// type ButtonProps = {
+//   children: React.ReactNode; //children prop
+// };
 
-export default function Button({children}:ButtonProps) {
-  return (
-    <div className="flex justify-center items-center h-screen">
-      <button>{children}</button>
-    </div>
-  );
-}
-*/
-}
+// export default function Button({children}:ButtonProps) {
+//   return (
+//     <div className="flex justify-center items-center h-screen">
+//       <button>{children}</button>
+//     </div>
+//   );
+// }
 
-{
-  /* 
 //part9
 //onClick function
-import React from "react";
+// import React from "react";
 
-type ButtonProps = {
-  onClick: () => void; //onClick function
-};
+// type ButtonProps = {
+//   onClick: () => void; //onClick function
+// };
 
-export default function Button({ onClick }: ButtonProps) {
-  return (
-    <div className="flex justify-center items-center h-screen">
-      <button
-        onClick={onClick}
-      >
-        Click me
-      </button>
-    </div>
-  );
-}
-  */
-}
+// export default function Button({ onClick }: ButtonProps) {
+//   return (
+//     <div className="flex justify-center items-center h-screen">
+//       <button
+//         onClick={onClick}
+//       >
+//         Click me
+//       </button>
+//     </div>
+//   );
+// }
 
 //part 8
 //if we want one prop for border radius
