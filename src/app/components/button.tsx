@@ -1,12 +1,29 @@
 //from part 15
 
+//part 17
+//when we hover on the ComponentProps, it says that it's better to use the "ComponentPropsWithRef" or "ComponentPropsWithoutRef" instead of "ComponentProps". In the part 16 , is better to use the "ComponentPropsWithoutRef"
+import React, { forwardRef, ComponentPropsWithRef } from "react";
+
+type ButtonProps = ComponentPropsWithRef<"button">;
+
+const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => (
+  <button ref={ref} {...props} />
+));
+Button.displayName = 'Button';
+export default Button;
+
+
+
+
+
 //part 16
 //if we have hundreds of these attributes, and we don't want to pass all of them individually one by one, so we can use a helper type called Component.Props and in the <> (anchor tag) we define which element it should be. In TypeScript, you can use the ComponentProps utility type from React to get the props type of a specific component or element, such as a <button>.
-import React, { ComponentProps } from "react";
+{
+  /*import React, { ComponentProps } from "react";
 
 type ButtonProps = ComponentProps<"button"> // now we can accept all the attributes that the button element accepts
-// type ButtonProps = ComponentProps<"a"> 
-// type ButtonProps = ComponentProps<""> 
+// type ButtonProps = ComponentProps<"a"> //for a tag
+
 
 
 export default function Button(props: ButtonProps) {
@@ -14,18 +31,17 @@ export default function Button(props: ButtonProps) {
     <div className="flex justify-center items-center h-screen">
       <button {...props}>
         Click Me!
-      </button>
+       </button>
     </div>
   );
+}*/
 }
-
-
-
 
 //part 15
 // use the default attributes
 
-{/*import React from "react";
+{
+  /*import React from "react";
 
 type ButtonProps = {
   type?: "button" | "submit" | "reset"; //default value is button
@@ -41,7 +57,8 @@ export default function Button({ type, autoFocus }: ButtonProps) {//we need to p
     </div>
   );
 }
-  */}
+  */
+}
 
 //part14
 //difference between interface and type alias

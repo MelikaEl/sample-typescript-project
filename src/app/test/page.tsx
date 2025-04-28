@@ -1,6 +1,53 @@
 "use client";
+
+//part 17
+import React, { useRef } from "react";
+
+// Your Button component (assuming it forwards ref properly)
+import Button from "../components/button";
+
+export default function MyComponent() {
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  const handleClick = () => {
+    if (buttonRef.current) {
+      buttonRef.current.focus(); // Focus the button
+    }
+  };
+
+  return (
+    <div style={{ padding: "20px" }}>
+      {/* Button that will be focused */}
+      <Button ref={buttonRef} onClick={handleClick} style={{ padding: "10px 20px" }}>
+        Click to focus me
+      </Button>
+
+      {/* Instruction text */}
+      <p>Click the button, then see the focus outline appear.</p>
+
+      {/* Additional style for focus effect */}
+      <style>
+        {`
+          /* Add a visual focus style for the button */
+          button:focus {
+            outline: 3px solid blue; /* Blue outline when focused */
+            outline-offset: 4px;
+            background-color: #eef; /* Optional: change background color on focus */
+          }
+        `}
+      </style>
+    </div>
+  );
+}
+
+
+
+
+
+
+
 // part 16;
-import React from "react";
+{/*import React from "react";
 import Button from "../components/button";
 
 
@@ -13,6 +60,7 @@ export default function page() {
     </div>
   );
 }
+  */}
 
 
 
