@@ -1,6 +1,37 @@
 //from part 15
 
-//part 
+//part 22
+// hooks
+{/*import React from 'react'
+
+type User = {
+  name?: string; 
+  age?: number; 
+}
+
+export default function button() {
+  // const [count, setCount] = React.useState(0); //when we hover on count, the typescript infers the type of it as number based on the initial value 0.
+
+  // const [count, setCount] = React.useState<number>(0);//here we define the type of count as number explicitly.
+  // const [count, setCount] = React.useState<string>(0);//here if we define the type of count as string explicitly, it shows us an error because the initial value is 0 which is a number.
+  
+  // const [user, setUser] = React.useState(null); //we give it's initial value null 
+// const name = user.name //it gives error on user, because user is null and we can't access name property of null.
+
+// const [user, setUser] = React.useState<User>(null);//we define the optional type User, so when we hover on user, it shows us the type of it as User, but we get the error on null when we hover on it. So for resolve this issue we use or.
+// const name = user.name 
+
+// const [user, setUser] = React.useState<User | null>(null);
+// const name = user.name //here it gives us error on user, because it can be null, so we resolve this issue with optional chaining.
+
+// const [user, setUser] = React.useState<User | null>(null);
+// const name = user?.name 
+
+  return (
+    <div>button</div>
+  )
+}
+  */}
 
 
 
