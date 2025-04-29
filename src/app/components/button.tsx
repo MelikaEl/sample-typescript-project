@@ -1,8 +1,55 @@
 //from part 15
 
+//part 24
+// question about react and typescript
+{
+  /*
+  Am I understand correctly that that the react defines these types for just being using by typescript?
+  The primary and overwhelmingly significant reason React defines these types (like React.MouseEvent and ComponentProps) is for use by TypeScript. 
+  Think of it this way:
+
+React's Core is JavaScript: React's fundamental runtime is written in JavaScript. It doesn't inherently "understand" or enforce types on its own.
+TypeScript's Role: TypeScript is a separate language that adds static typing to JavaScript. To effectively work with React's APIs and structures in a type-safe way, TypeScript needs type definitions that describe those APIs.
+React Provides the Descriptions: React provides these .d.ts (declaration) files, which contain the type definitions for its components, props, events, and other internal structures. These definitions tell TypeScript what to expect when you're using React in a TypeScript project.
+
+In essence, React provides the "map" (the type definitions) so that TypeScript can effectively navigate and verify the "territory" (the React codebase).
+
+So, to answer your question directly and concisely: Yes, you are correct. The main purpose of React defining these types is to enable seamless and type-safe integration with TypeScript. The benefits you experience with these types are primarily benefits within a TypeScript project.
+
+
+so why typescript itself doesn't provide these types and react defines these types?
+
+The reason TypeScript itself doesn't provide these React-specific types is because TypeScript is a general-purpose language that knows nothing inherently about the specifics of the React library.
+
+Think of it this way:
+
+TypeScript is the language police: It sets the rules for how data types should be used in JavaScript code. It understands core JavaScript concepts and provides syntax for adding type annotations.
+
+React is a specific library: It's a set of tools and conventions for building user interfaces. It has its own concepts like components, props, state, events, and a virtual DOM.
+
+TypeScript's Generality:
+
+TypeScript is designed to be adaptable to any JavaScript library or framework. If TypeScript were to include type definitions for every popular library out there (React, Angular, Vue, Node.js built-in modules, browser APIs, etc.), it would become:
+
+Bloated: The TypeScript language service and compiler would become huge, containing definitions for countless external dependencies that a particular project might not even use.
+
+React's Responsibility (and the Community's):
+
+Therefore, the responsibility of providing accurate type definitions for a specific library like React falls on:
+
+The React team itself: As the creators and maintainers of React, they have the most in-depth understanding of its internal workings and API. They are best positioned to provide and maintain the official type definitions (which they do, often bundled or published separately).
+
+React provides the specific type definitions that describe its own unique API and concepts, allowing TypeScript to understand and type-check React code effectively. 
+  */
+}
+
+//part 23
+//for useEffect we don't have to assume type
+
 //part 22
 // hooks
-{/*import React from 'react'
+{
+  /*import React from 'react'
 
 type User = {
   name?: string; 
@@ -31,16 +78,14 @@ export default function button() {
     <div>button</div>
   )
 }
-  */}
-
-
-
-
+  */
+}
 
 //part 21
 // event handlers: onChange, onSubmit, onClick
 
-{/*import React from "react";
+{
+  /*import React from "react";
 
 export default function Button() {
   return (
@@ -51,9 +96,11 @@ export default function Button() {
 
   );
 }
-  */}
+  */
+}
 
-{/*import React from "react";
+{
+  /*import React from "react";
 
 export default function Button() {
   //here when we hover on the e parameter, it can't infer the type of it, because we can use this function elsewhere and typescript can't realize that we only use the function for the event handler, so we should define the type of it here.
@@ -64,11 +111,8 @@ export default function Button() {
     <button onClick={handleClick}>Click Me!</button>
   );
 }
-  */}
-
-
-
-
+  */
+}
 
 //part 20
 // with interface we do the same thing as part 19 but with extend

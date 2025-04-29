@@ -1,14 +1,8 @@
 "use client";
 
-
-
-
-
-
-
-
 //part 19 , 20
-{/*import React from "react";
+{
+  /*import React from "react";
 import SuperButton from "../components/button";
 
 
@@ -21,14 +15,12 @@ export default function page() {
     </div>
   );
 }
-*/}
-
-
-
-
+*/
+}
 
 //part 18
-{/*import React from "react";
+{
+  /*import React from "react";
 import Button from "../components/button";
 
 
@@ -41,11 +33,12 @@ export default function page() {
     </div>
   );
 }
-  */}
-
+  */
+}
 
 //part 17
-{/*import React, { useRef } from "react";
+{
+  /*import React, { useRef } from "react";
 import Button from "../components/button";
 
 export default function MyComponent() {
@@ -87,16 +80,12 @@ export default function MyComponent() {
     </div>
   );
 }
-  */}
-
-
-
-
-
-
+  */
+}
 
 // part 16;
-{/*import React from "react";
+{
+  /*import React from "react";
 import Button from "../components/button";
 
 
@@ -109,10 +98,8 @@ export default function page() {
     </div>
   );
 }
-  */}
-
-
-
+  */
+}
 
 //part 15
 //use the default attributes
@@ -139,7 +126,7 @@ export default function page() {
 
 // export default function Home() {
 //   const [count, setCount] = useState<number>(0);
-  
+
 //   return (
 //     <main>
 //       <h1 className="text-2xl text-center mb-4">Count: {count}</h1>
@@ -157,13 +144,23 @@ export default function page() {
 //   return (
 //     <div>
 //       {" "}
-      {/* <Button>
+{
+  /* <Button>
         <div></div>
-      </Button> */}
-      {/* <Button><span>Click me!!!</span></Button> */}
-      {/* <Button><i></i></Button> */}
-      {/* <Button>click</Button> */}
-      {/*it throws error because of the text is string not a jsx element */}
+      </Button> */
+}
+{
+  /* <Button><span>Click me!!!</span></Button> */
+}
+{
+  /* <Button><i></i></Button> */
+}
+{
+  /* <Button>click</Button> */
+}
+{
+  /*it throws error because of the text is string not a jsx element */
+}
 //     </div>
 //   );
 // }
@@ -172,10 +169,9 @@ export default function page() {
 // import React from "react";
 // import Button from "../components/button";
 
-
 // export default function page() {
 //    const icon = <i></i>;
- 
+
 //   return (
 //     <div>
 //       {" "}
