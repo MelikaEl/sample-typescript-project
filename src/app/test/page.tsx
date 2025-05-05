@@ -1,5 +1,25 @@
 "use client";
 
+//part 31
+import React from "react";
+import Button from "../components/button";
+
+function Home() {
+  return (
+    <main>
+      {/*it accepts any type value nubber, boolean, string*/}
+      <Button countValue={5} countHistory={[1, 5, 3, 8]} />
+
+      {/* <Button countValue={true} countHistory={[true, false, true]} />  */}
+
+      {/*here it gives us an error */}
+      {/* <Button countValue={"5"} countHistory={[1,5,3,8]} />  */}
+    </main>
+  );
+}
+
+export default Home;
+
 //part 19 , 20
 {
   /*import React from "react";
@@ -15,26 +35,22 @@ export default function page() {
     </div>
   );
 }
-*/
+  */
 }
 
 //part 18
-{
-  /*import React from "react";
-import Button from "../components/button";
+// import React from "react";
+// import Button from "../components/button";
 
+// export default function page() {
 
-export default function page() {
- 
-  return (
-    <div>
-      {" "}
-      <Button variant="secondary" type="submit" autoFocus={true} disabled={false} name="button" title="click me"/>
-    </div>
-  );
-}
-  */
-}
+//   return (
+//     <div>
+//       {" "}
+//       <Button variant="secondary" type="submit" autoFocus={true} disabled={false} name="button" title="click me"/>
+//     </div>
+//   );
+// }
 
 //part 17
 {
@@ -84,40 +100,33 @@ export default function MyComponent() {
 }
 
 // part 16;
-{
-  /*import React from "react";
-import Button from "../components/button";
+// import React from "react";
+// import Button from "../components/button";
 
+// export default function page() {
 
-export default function page() {
- 
-  return (
-    <div>
-      {" "}
-      <Button type="submit" autoFocus={true} disabled={false} name="button" title="click me"/>
-    </div>
-  );
-}
-  */
-}
+//   return (
+//     <div>
+//       {" "}
+//       <Button type="submit" autoFocus={true} disabled={false} name="button" title="click me"/>
+//     </div>
+//   );
+// }
 
 //part 15
 //use the default attributes
-{
-  /*import React from "react";
-import Button from "../components/button";
+// import React from "react";
+// import Button from "../components/button";
 
+// export default function page() {
 
-export default function page() {
- 
-  return (
-    <div>
-      {" "}
-      <Button type="submit" autoFocus={true}/>
-    </div>
-  );
-}*/
-}
+//   return (
+//     <div>
+//       {" "}
+//       <Button type="reset" autoFocus={true}/>
+//     </div>
+//   );
+// }
 
 //part 12
 // 'use client';

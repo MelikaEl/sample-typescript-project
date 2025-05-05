@@ -1,6 +1,142 @@
-//from part 15
+//from part 27
 
-//part 24
+//part 31 with page file
+//Generics of typescript in react
+//with generics we specifying a relationship,  the input is going to be of the same type as what you get in the output and instead of hard coding string or boolean, we make it more general with generics
+
+import React from "react";
+
+// type ButtonProps = {
+//   countValue: number; //maybe we want the types also be string or other values too. we have relationships between these two props. If the countValue is a number, the countHistory should be an array of numbers. If the countValue is a string, the countHistory should be an array of strings. So we use generics to make this realtionship so we should use type parameter (T)
+//   countHistory: number[];
+// };
+
+//the count value should be the same type as the count history
+
+type ButtonProps<T> = {
+  countValue: T;
+  countHistory: T[];// the history of the count values
+};
+
+export default function Button<T>({
+  countValue,
+  countHistory,
+}: ButtonProps<T>) {
+  return (
+    <button countValue={countValue} countHistory={countHistory}>
+      click me
+    </button>
+  );
+}
+
+//part 30
+//as
+{
+  /*
+import React, { useEffect } from "react";
+
+type ButtonColor = "red" | "blue" | "green";
+
+export default function Button() {
+  // useEffect(() => {
+  //   const previousButtonColor = localStorage.getItem("buttonColor"); // when we hover on the previousButtonColor, it shows us the type of it as string | null. It can be null because if we don't have any value in the local storage, it will return null.
+  //   if (previousButtonColor) {
+  //     console.log(`Previous button color: ${previousButtonColor}`);
+  //   } else {
+  //     console.log("No previous button color found.");
+  //   }
+  // }, []);
+
+  useEffect(() => {
+    const previousButtonColor = localStorage.getItem("buttonColor") as ButtonColor; //we can use as to tell typescript that we know better than it. We are sure that the value of previousButtonColor is one of the values of ButtonColor type.
+    if (previousButtonColor) {
+      console.log(`Previous button color: ${previousButtonColor}`);
+    } else {
+      console.log("No previous button color found.");
+    }
+  }, [])
+
+  return <button>Click me!</button>;
+}
+*/
+}
+
+//part 29
+//omit
+{
+  /* 
+import React from 'react'
+
+type User = {
+  name: string;
+  sessionId: string;
+}
+
+
+type Guest = Omit<User, "name">; //Omit is a utility type in TypeScript that creates a new type by picking all properties from an existing type except for the specified ones. In this case, it creates a new type Guest that has all properties of User except for name. when we hover on the Guest, it doesn't show us the name property.
+//if the user is not registered yet, we don't have it's name but we have the sessionId.
+
+export default function button(user : Guest) {
+  return (
+    <button>
+
+    </button>
+  )
+}
+  */
+}
+
+//part 28
+//as const
+//not using as const:  when we hover on the option, the typescript infers the type of that as string but after we used the (as const) the typescript infers the type as static definitions and read only
+//not using as const: when we hover on the buttonTextOptions, it shows us the type of it as string[] but after we used the (as const) the typescript infers the type as readonly ["Click me", "Click me again", "Click me one more time"] and it makes the array readonly.
+// readonly: means that the array cannot be modified after its creation. You can't add, remove, or change elements in the array. This is useful for ensuring that the array remains constant and prevents accidental modifications.
+
+{
+  /*
+import React from "react";
+
+// const buttonTextOptions = [
+//   "Click me",
+//   "Click me again",
+//   "Click me one more time",
+// ];
+
+
+const buttonTextOptions = [
+  "Click me",
+  "Click me again", 
+  "Click me one more time", 
+] as const; //as const makes the array readonly and infers the type of each element as a literal type (literal types in TypeScript are quite neat! They allow you to be much more precise about the exact values that a variable can hold. Instead of just saying a variable is a string, you can say it must be the exact string "hello") instead of a general string type.
+
+//these are the errors that we get because of (as const) is read only
+// This will cause a TypeScript error:
+buttonTextOptions.push("Another option");
+
+// This will also cause a TypeScript error:
+buttonTextOptions[0] = "New text";
+
+export default function Button() {
+  return (
+    <button>
+      {buttonTextOptions.map((option) => {
+        return option;
+      })}
+    </button>
+  );
+}
+
+*/
+}
+//part 27
+// useContext
+// take example from perplexity
+// https://www.perplexity.ai/search/i-want-you-to-give-me-an-examp-qCe2IuyuRJiO5j5vOqGavw
+
+//part 26
+//what is the use of React.FC
+
+//part 25
 // question about react and typescript
 {
   /*
@@ -43,176 +179,167 @@ React provides the specific type definitions that describe its own unique API an
   */
 }
 
+// part 24
+// useRef hook
+// import React, { useRef } from "react";
+
+// export default function Button() {
+//   const ref = useRef<HTMLButtonElement>(null); //HTMLButtonElement is a type in TypeScript (and JavaScript's DOM API). when using useRef, we specify the type of the element we expect to reference. In this case, it's a button element. The type of the useRef hook is "React.RefObject" that when we hover on the useRef, it shows that. We don't specify the "React.RefObject" type for useRef because typescript can infer it's type.
+
+//   return <button ref={ref}> Click me!</button>;
+// }
+
 //part 23
 //for useEffect we don't have to assume type
 
 //part 22
 // hooks
-{
-  /*import React from 'react'
+// import React from 'react'
 
-type User = {
-  name?: string; 
-  age?: number; 
-}
+// type User = {
+//   name?: string;
+//   age?: number;
+// }
 
-export default function button() {
-  // const [count, setCount] = React.useState(0); //when we hover on count, the typescript infers the type of it as number based on the initial value 0.
+// export default function button() {
+//   //  const [count, setCount] = React.useState(0); //when we hover on count, the typescript infers the type of it as number based on the initial value 0.
 
-  // const [count, setCount] = React.useState<number>(0);//here we define the type of count as number explicitly.
-  // const [count, setCount] = React.useState<string>(0);//here if we define the type of count as string explicitly, it shows us an error because the initial value is 0 which is a number.
-  
-  // const [user, setUser] = React.useState(null); //we give it's initial value null 
-// const name = user.name //it gives error on user, because user is null and we can't access name property of null.
+//   // const [count, setCount] = React.useState<number>(0);//here we define the type of count as number explicitly.
+//   // const [count, setCount] = React.useState<string>(0);//here if we define the type of count as string explicitly, it shows us an error because the initial value is 0 which is a number.
 
-// const [user, setUser] = React.useState<User>(null);//we define the optional type User, so when we hover on user, it shows us the type of it as User, but we get the error on null when we hover on it. So for resolve this issue we use or.
-// const name = user.name 
+//   // const [user, setUser] = React.useState(null); //we give it's initial value null
+// // const name = user.name //it gives error on user, because user is null and we can't access name property of null.
+
+// // const [user, setUser] = React.useState<User>(null);//we define the optional type User, so when we hover on user, it shows us the type of it as User, but we get the error on null when we hover on it. So for resolve this issue we use or.
+// // const name = user.name
+
+// // const [user, setUser] = React.useState<User | null>(null);
+// // const name = user.name //here it gives us error on user, because it can be null, so we resolve this issue with optional chaining.
 
 // const [user, setUser] = React.useState<User | null>(null);
-// const name = user.name //here it gives us error on user, because it can be null, so we resolve this issue with optional chaining.
+// const name = user?.name
 
-// const [user, setUser] = React.useState<User | null>(null);
-// const name = user?.name 
-
-  return (
-    <div>button</div>
-  )
-}
-  */
-}
+//   return (
+//     <div>button</div>
+//   )
+// }
 
 //part 21
 // event handlers: onChange, onSubmit, onClick
 
-{
-  /*import React from "react";
+// import React from "react";
 
-export default function Button() {
-  return (
-    //when we hover on the e parameter, it shows us the type of the event :
-    // React.MouseEvent<HTMLButtonElement, MouseEvent>
-    //typescript can infers the type of the event 
-    <button onClick={(e) => console.log("Button clicked!")}>Click Me!</button>
+// export default function Button() {
+//   return (
+//     //when we hover on the e parameter, it shows us the type of the event :
+//     // React.MouseEvent<HTMLButtonElement, MouseEvent>
+//     //typescript can infers the type of the event
+//     <button onClick={(e) => console.log("Button clicked!")}>Click Me!</button>
 
-  );
-}
-  */
-}
+//   );
+// }
 
-{
-  /*import React from "react";
+// import React from "react";
 
-export default function Button() {
-  //here when we hover on the e parameter, it can't infer the type of it, because we can use this function elsewhere and typescript can't realize that we only use the function for the event handler, so we should define the type of it here.
-  const handleClick = (e : React.MouseEvent<HTMLButtonElement, MouseEvent>) => 
-    e.preventDefault(); //to prevent the default behavior of the button, which is to submit a form or refresh the page
-    console.log("Button clicked!") 
-  return (
-    <button onClick={handleClick}>Click Me!</button>
-  );
-}
-  */
-}
+// export default function Button() {
+//   //here when we hover on the e parameter, it can't infer the type of it, because we can use this function elsewhere and typescript can't realize that we only use the function for the event handler, so we should define the type of it here.
+//   const handleClick = (e : React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
+//     e.preventDefault(); //to prevent the default behavior of the button, which is to submit a form or refresh the page
+//     console.log("Button clicked!")
+//   return (
+//     <button onClick={handleClick}>Click Me!</button>
+//   );
+// }
 
 //part 20
 // with interface we do the same thing as part 19 but with extend
-{
-  /*import React from "react";
+// import React from "react";
 
-interface ButtonProps  {
-  type: "button" | "submit" | "reset"; 
-  autoFocus?: boolean; //default value is false
-}
+// interface ButtonProps  {
+//   type: "button" | "submit" | "reset";
+//   autoFocus?: boolean; //default value is false
+// }
 
-interface SuperButtonProps extends ButtonProps {
-  size: "small" | "medium" | "large"; 
-}
+// interface SuperButtonProps extends ButtonProps {
+//   size: "small" | "medium" | "large";
+// }
 
-function Button(props: ButtonProps) {
-  return (
-    <div className="flex justify-center items-center h-screen">
-      <button  {...props}>
-        Click Me!
-       </button>
-    </div>
-  );
-}
+// function Button(props: ButtonProps) {
+//   return (
+//     <div className="flex justify-center items-center h-screen">
+//       <button  {...props}>
+//         Click Me!
+//        </button>
+//     </div>
+//   );
+// }
 
-export default function SuperButton(props: SuperButtonProps) {
-  return (
-    <div className="flex justify-center items-center h-screen">
-      <button {...props}>
-       second button
-       </button>
-       
-       <Button {...props}/>
-       
-    </div>
-  );
-}
-  */
-}
+// export default function SuperButton(props: SuperButtonProps) {
+//   return (
+//     <div className="flex justify-center items-center h-screen">
+//       <button {...props}>
+//        second button
+//        </button>
+
+//        <Button {...props}/>
+
+//     </div>
+//   );
+// }
 
 //part 19
 // if we have another component and want to define props for that component too but it has the props of the previous component too.
-{
-  /*import React from "react";
+// import React from "react";
 
-type ButtonProps = {
-  type: "button" | "submit" | "reset"; 
-  autoFocus?: boolean; //default value is false
-}
+// type ButtonProps = {
+//   type: "button" | "submit" | "reset";
+//   autoFocus?: boolean; //default value is false
+// }
 
-type SuperButtonProps = ButtonProps & {
-  size: "small" | "medium" | "large"; 
-}
+// type SuperButtonProps = ButtonProps & {
+//   size: "small" | "medium" | "large";
+// }
 
-function Button(props: ButtonProps) {
-  return (
-    <div className="flex justify-center items-center h-screen">
-      <button  {...props}>
-        Click Me!
-       </button>
-    </div>
-  );
-}
+// function Button(props: ButtonProps) {
+//   return (
+//     <div className="flex justify-center items-center h-screen">
+//       <button  {...props}>
+//         Click Me!
+//        </button>
+//     </div>
+//   );
+// }
 
-export default function SuperButton(props: SuperButtonProps) {
-  return (
-    <div className="flex justify-center items-center h-screen">
-      <button {...props}>
-       second button
-       </button>
-       
-       <Button {...props}/>
-       
-    </div>
-  );
-}
-  */
-}
+// export default function SuperButton(props: SuperButtonProps) {
+//   return (
+//     <div className="flex justify-center items-center h-screen">
+//       <button {...props}>
+//        second button
+//        </button>
 
-//part 18
-{
-  /*import React, {  ComponentPropsWithoutRef } from "react";
+//        <Button {...props}/>
 
-type ButtonProps = ComponentPropsWithoutRef<"button"> & {
-  variant?: "primary" | "secondary"; //variant prop
-}
-// with ComponentPropsWithoutRef, we accept all the attributes that the button element accepts, and nothing else. If want to pass a prop that is not a button attribute, we use & (ampersand) that is called intersecting.
+//     </div>
+//   );
+// }
 
+// part 18
+// import React, {  ComponentPropsWithoutRef } from "react";
 
-export default function Button(props: ButtonProps) {
-  return (
-    <div className="flex justify-center items-center h-screen">
-      <button {...props}>
-        Click Me!
-       </button>
-    </div>
-  );
-}
-  */
-}
+// type ButtonProps = ComponentPropsWithoutRef<"button"> & {
+//   variant?: "primary" | "secondary"; //variant prop
+// }
+// // with ComponentPropsWithoutRef, we accept all the attributes that the button element accepts, and nothing else. If want to pass a prop that is not a button attribute, we use & (ampersand) that is called intersecting.
+
+// export default function Button(props: ButtonProps) {
+//   return (
+//     <div className="flex justify-center items-center h-screen">
+//       <button {...props}>
+//         Click Me!
+//        </button>
+//     </div>
+//   );
+// }
 
 //part 17
 //when we hover on the ComponentProps, it says that it's better to use the "ComponentPropsWithRef" or "ComponentPropsWithoutRef" instead of "ComponentProps". In the part 16 , is better to use the "ComponentPropsWithoutRef"
@@ -220,57 +347,52 @@ export default function Button(props: ButtonProps) {
 // forwardRef: A React function that allows your component to accept a ref prop and forward it to a child component or DOM element.
 // ComponentPropsWithRef: A TypeScript utility type that extracts the props of a component (or element) including the ref prop.
 
-{
-  /*import React, { forwardRef, ComponentPropsWithRef } from "react";
+// import React, { forwardRef, ComponentPropsWithRef } from "react";
 
-type ButtonProps = ComponentPropsWithRef<"button">;
-// It represents all the props that a native <button> element accepts including the ref.
+// type ButtonProps = ComponentPropsWithRef<"button">;
+// // It represents all the props that a native <button> element accepts including the ref.
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => (
-  <button ref={ref} {...props} />
-));
-// forwardRef: Wraps a functional component to allow it to accept a ref prop.
-// Type parameters:
-// <HTMLButtonElement, ButtonProps>:
-// HTMLButtonElement: The type of the DOM node the ref will point to.
-// ButtonProps: The props the component accepts.
-// Function parameters:
-// (props, ref):
-// props: All the props passed to the component (like onClick, type, etc.).
-// ref: The ref object passed from the parent, which will be attached to the <button> element.
-// Component body:
-// Returns a <button> element.
-// ref={ref}: Attaches the forwarded ref to the DOM <button>.
-// {...props}: Spreads all other props onto the <button>.
+// const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => (
+//   <button ref={ref} {...props} />
+// ));
+// // forwardRef: Wraps a functional component to allow it to accept a ref prop.
+// // Type parameters:
+// // <HTMLButtonElement, ButtonProps>:
+// // HTMLButtonElement: The type of the DOM node the ref will point to.
+// // ButtonProps: The props the component accepts.
+// // Function parameters:
+// // (props, ref):
+// // props: All the props passed to the component (like onClick, type, etc.).
+// // ref: The ref object passed from the parent, which will be attached to the <button> element.
+// // Component body:
+// // Returns a <button> element.
+// // ref={ref}: Attaches the forwarded ref to the DOM <button>.
+// // {...props}: Spreads all other props onto the <button>.
 
-Button.displayName = "Button";
-// Why?:
-// When using forwardRef, React components don't automatically get a displayName, which makes debugging and React DevTools less clear.
-// Setting displayName explicitly helps identify the component in DevTools and improves error messages.
+// Button.displayName = "Button";
+// // Why?:
+// // When using forwardRef, React components don't automatically get a displayName, which makes debugging and React DevTools less clear.
+// // Setting displayName explicitly helps identify the component in DevTools and improves error messages.
 
-export default Button;*/
-}
+// export default Button;
 
 //part 16
 //if we have hundreds of these attributes, and we don't want to pass all of them individually one by one, so we can use a helper type called Component.Props and in the <> (anchor tag) we define which element it should be. In TypeScript, you can use the ComponentProps utility type from React to get the props type of a specific component or element, such as a <button>.
-{
-  /*import React, { ComponentProps } from "react";
 
-type ButtonProps = ComponentProps<"button"> // now we can accept all the attributes that the button element accepts
-// type ButtonProps = ComponentProps<"a"> //for a tag
+// import React, { ComponentProps } from "react";
 
+// type ButtonProps = ComponentProps<"button"> // now we can accept all the attributes that the button element accepts
+// // type ButtonProps = ComponentProps<"a"> //for a tag
 
-
-export default function Button(props: ButtonProps) {
-  return (
-    <div className="flex justify-center items-center h-screen">
-      <button {...props}>
-        Click Me!
-       </button>
-    </div>
-  );
-}*/
-}
+// export default function Button(props: ButtonProps) {
+//   return (
+//     <div className="flex justify-center items-center h-screen">
+//       <button {...props}>
+//         Click Me!
+//        </button>
+//     </div>
+//   );
+// }
 
 //part 15
 // use the default attributes
@@ -292,7 +414,7 @@ export default function Button({ type, autoFocus }: ButtonProps) {//we need to p
     </div>
   );
 }
-  */
+ */
 }
 
 //part14
@@ -390,19 +512,22 @@ export default function button({count=0}) {
 //part11
 //JSX.Element is a TypeScript type that represents a valid JSX element (e.g., <div>, <span>, or custom components).
 
-// import React from "react";
+{
+  /*import React from "react";
 
-// type ButtonProps = {
-//   children: React.JSX.Element; //children prop
-// };
+type ButtonProps = {
+  children: React.JSX.Element; //children prop
+};
 
-// export default function Button({children}:ButtonProps) {
-//   return (
-//     <div className="flex justify-center items-center h-screen">
-//       <button>{children}</button>
-//     </div>
-//   );
-// }
+export default function Button({children}:ButtonProps) {
+  return (
+    <div className="flex justify-center items-center h-screen">
+      <button>{children}</button>
+    </div>
+  );
+}
+  */
+}
 
 //part10
 // a. Children Prop
