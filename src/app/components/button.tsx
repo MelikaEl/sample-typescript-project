@@ -2,13 +2,8 @@
 
 //part 34
 
-
-
-
-
 //part 33
 //unknown type
-
 
 // 1. unknown Type
 // Safer alternative to any (introduced in TypeScript 3.0).
@@ -17,15 +12,12 @@
 
 // Represents "I don't know the type yet, but I’ll check it later."
 
-
 // 2. any Type
 // Opts out of type checking entirely (disables TypeScript safety).
 
 // Allows any operation without errors (like plain JavaScript).
 
 // Represents "I don’t care about the type."
-
-
 
 // What is it for?
 // While both any and unknown can hold values of any type , they differ significantly in how you can interact with them:
@@ -36,28 +28,20 @@
 // Safe                                   ❌ Not safe                                 ✅ Safe
 // Use case                               When you don't care about type               When you want to ensure type checks
 
-
-
-
-
 // Why prefer unknown over any?
 // Using unknown forces developers to check the type before performing operations , making your code safer.
 
-
-  let value: unknown;
+// let value: unknown;
 
 // value.toUpperCase(); // it gives error because we did operation on the unknown type
 // value.toFixed(2); // it gives error because we did operation on the unknown type
 
-
-if (typeof value === "string") {//You must first check the type:
-  value.toUpperCase(); // ✅ OK
-}
-
+// if (typeof value === "string") {//You must first check the type:
+//   value.toUpperCase(); // ✅ OK
+// }
 
 //USE CASE
-// In fetching data from API, the data that we get back from an API by default is inferred as type of any in typescript (when we hover on data, it shows the type of any) but its better to prevent the type any when we use typescript. The problem here is that we don't know what we are getting back here, we may have some idea of what we're getting back but we don't know for sure. There could be an error on the server, we maybe using the wrong URL, you can never trust what you are getting back from API and if we use any we get a lot of bugs, the more appropriate type is unknown so you can just start using it 
-
+// In fetching data from API, the data that we get back from an API by default is inferred as type of any in typescript (when we hover on data, it shows the type of any) but its better to prevent the type any when we use typescript. The problem here is that we don't know what we are getting back here, we may have some idea of what we're getting back but we don't know for sure. There could be an error on the server, we maybe using the wrong URL, you can never trust what you are getting back from API and if we use any we get a lot of bugs, the more appropriate type is unknown so you can just start using it
 
 // import React from 'react'
 // import { useEffect } from 'react';
@@ -73,7 +57,6 @@ if (typeof value === "string") {//You must first check the type:
 //     <div>button</div>
 //   )
 // }
-
 
 // import React from 'react'
 // import { useEffect } from 'react';
@@ -92,29 +75,122 @@ if (typeof value === "string") {//You must first check the type:
 //   )
 // }
 
+// use zod
+// import React from 'react'
+// import { useEffect } from 'react';
 
+// export default function Button() {
+// useEffect (()=> {
+//   fetch ("https://example.com/todos/1")
+//   .then((response)=> response.json())
+//   .then((data:unknown)=>{
+//     const todo = todoSchema.parse(data) // it will tell us whether that data is indeed that particular shape, once you've done that, you can use it and do something with the data
+//   })
+// },[])
 
-// use zod 
-import React from 'react'
-import { useEffect } from 'react';
+//   return (
+//     <div>button</div>
+//   )
+// }
+
+import React, { useEffect } from "react";
+import { z } from "zod";
+
+// 🔹 Define the expected shape of the data using Zod. todoSchema defines what a valid response looks like. You can think of this as a contract : “If you give me some data, I will only accept it if it has these fields and they are the right types.”
+// What does .parse() do?
+// It tries to validate the input (data) against the schema:
+
+// ✅ If it matches → returns a value of type { id: number; title: string; completed: boolean }
+// ❌ If it doesn't match → throws an error
+// This is the type guard at runtime , similar to how TypeScript enforces types at compile time.
+
+const todoSchema = z.object({
+  id: z.number(),
+  title: z.string(),
+  completed: z.boolean(),
+});
+
+// 🔹 Define TypeScript type inferred from the schema (optional but useful). This line creates a TypeScript type called Todo that matches the shape of data validated by your Zod schema (todoSchema).
+// This means:
+
+// "A valid todo object must have:
+
+// id which is a number,
+// title which is a string,
+// completed which is a boolean."
+
+// Example Without z.infer
+// Without using z.infer, you'd do this:
+
+// // Schema for runtime validation
+// const todoSchema = z.object({
+//   id: z.number(),
+//   title: z.string(),
+//   completed: z.boolean(),
+// });
+
+// // Type for compile-time typing
+// type Todo = {
+//   id: number;
+//   title: string;
+//   completed: boolean;
+// };
+
+// With z.infer, you can remove the type Todo = { ... } entirely — it's inferred from the schema!
+
+// Why Is This Useful?
+// ✅ DRY Principle (Don't Repeat Yourself)
+// You only define the shape once — in the schema — and get both:
+
+// Runtime validation via Zod
+// Compile-time type safety via TypeScript
+// ✅ Auto-updating types
+// If you change your schema later, your type automatically updates too.
+
+// Example:
+
+// const todoSchema = z.object({
+//   id: z.number(),
+//   title: z.string(),
+//   completed: z.boolean(),
+//   createdAt: z.date().optional(), // new field
+// });
+
+export type Todo = z.infer<typeof todoSchema>; //Now you can use Todo anywhere else in your app. I import in the page file
 
 export default function Button() {
-useEffect (()=> {
-  fetch ("https://example.com/todos/1")
-  .then((response)=> response.json())
-  .then((data:unknown)=>{
-    const todo = todoSchema.parse(data) // it will tell us whether that data is indeed that particular shape, once you've done that, you can use it and do something with the data 
-  })
-},[])
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/todos/1")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data: unknown) => {
+        // ✅ Safe parsing with Zod
+        const parsedData = todoSchema.parse(data);
+        //What does .parse() do?
+        // It tries to validate the input (data) against the schema:
 
-  return (
-    <div>button</div>
-  )
+        // ✅ If it matches → returns a value of type { id: number; title: string; completed: boolean }
+        // ❌ If it doesn't match → throws an error
+        // This is the type guard at runtime , similar to how TypeScript enforces types at compile time.
+
+        // Now TypeScript knows the shape of `parsedData`
+        console.log("Parsed Todo:", parsedData);
+      })
+      .catch((error: unknown) => {
+        if (error instanceof Error) {
+          console.error("Failed to fetch or parse todo:", error.message);
+        } else {
+          console.error("Unknown error:", error);
+        }
+      });
+  }, []);
+
+  return <div>button</div>;
 }
-
-
-
-
 
 //part 32
 //d.ts vs ts files and import types. type definition for global use across the project.
@@ -124,10 +200,9 @@ useEffect (()=> {
 // Output	    Compiled to .js	             Never emitted to JS
 // Purpose	  Implementation	             Type definitions only
 
-//for example colors are related to the theme and can be used across several components. We need to define this outside this component. 
+//for example colors are related to the theme and can be used across several components. We need to define this outside this component.
 
-//we can define this type in a file with .d.ts suffix and these files with these suffixes treated as declaration files also we can define these types in a file with .ts suffix. 
-
+//we can define this type in a file with .d.ts suffix and these files with these suffixes treated as declaration files also we can define these types in a file with .ts suffix.
 
 // import React from 'react'
 
@@ -139,8 +214,8 @@ useEffect (()=> {
 //   )
 // }
 
-
-{/*import React from 'react'
+{
+  /*import React from 'react'
 // import {Color} from "@/app/lib/index" 
 //now this look like a normal javascript variable that I can import here so for solving this problem we can write type in front of it to make it clear that this is a typescript type and it remind us that we shouldn't treated as a normal javascript variable.
 
@@ -157,16 +232,14 @@ export default function Button(props : ButtonProps) {
     <div>button</div>
   )
 }
-*/}
-
-
-
-
+*/
+}
 
 //part 31 with page file
 //Generics of typescript in react
 //with generics we specifying a relationship,  the input is going to be of the same type as what you get in the output and instead of hard coding string or boolean, we make it more general with generics
-{/*
+{
+  /*
 import React from "react";
 
 // type ButtonProps = {
@@ -191,10 +264,8 @@ export default function Button<T>({
     </button>
   );
 }
-  */}
-
-
-
+  */
+}
 
 //part 30
 //as
