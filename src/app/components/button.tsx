@@ -1,9 +1,172 @@
-//from part 27
+//from part 31
+
+//part 34
+
+
+
+
+
+//part 33
+//unknown type
+
+
+// 1. unknown Type
+// Safer alternative to any (introduced in TypeScript 3.0).
+
+// Forces type checking before use, making it more restrictive.
+
+// Represents "I don't know the type yet, but I’ll check it later."
+
+
+// 2. any Type
+// Opts out of type checking entirely (disables TypeScript safety).
+
+// Allows any operation without errors (like plain JavaScript).
+
+// Represents "I don’t care about the type."
+
+
+
+// What is it for?
+// While both any and unknown can hold values of any type , they differ significantly in how you can interact with them:
+
+// FEATURE                                ANY                                          UNKNOWN
+
+// Type checking                          ✅ Bypasses type checking                   ❌ Requires explicit type checking
+// Safe                                   ❌ Not safe                                 ✅ Safe
+// Use case                               When you don't care about type               When you want to ensure type checks
+
+
+
+
+
+// Why prefer unknown over any?
+// Using unknown forces developers to check the type before performing operations , making your code safer.
+
+
+  let value: unknown;
+
+// value.toUpperCase(); // it gives error because we did operation on the unknown type
+// value.toFixed(2); // it gives error because we did operation on the unknown type
+
+
+if (typeof value === "string") {//You must first check the type:
+  value.toUpperCase(); // ✅ OK
+}
+
+
+//USE CASE
+// In fetching data from API, the data that we get back from an API by default is inferred as type of any in typescript (when we hover on data, it shows the type of any) but its better to prevent the type any when we use typescript. The problem here is that we don't know what we are getting back here, we may have some idea of what we're getting back but we don't know for sure. There could be an error on the server, we maybe using the wrong URL, you can never trust what you are getting back from API and if we use any we get a lot of bugs, the more appropriate type is unknown so you can just start using it 
+
+
+// import React from 'react'
+// import { useEffect } from 'react';
+
+// export default function Button() {
+// useEffect (()=> {
+//   fetch ("https://example.com/todos/1")
+//   .then((response)=> response.json())
+//   .then(data => console.log(data))
+// },[])
+
+//   return (
+//     <div>button</div>
+//   )
+// }
+
+
+// import React from 'react'
+// import { useEffect } from 'react';
+
+// export default function Button() {
+// useEffect (()=> {
+//   fetch ("https://example.com/todos/1")
+//   .then((response)=> response.json())
+//   .then((data:unknown)=>{
+//     data.name.toUpperCase();// it gives us error on data because we do operation on the type of unknown. So before start using this method, we need to verify what we get back here. So here we cn use schemas like zod.
+//   })
+// },[])
+
+//   return (
+//     <div>button</div>
+//   )
+// }
+
+
+
+// use zod 
+import React from 'react'
+import { useEffect } from 'react';
+
+export default function Button() {
+useEffect (()=> {
+  fetch ("https://example.com/todos/1")
+  .then((response)=> response.json())
+  .then((data:unknown)=>{
+    const todo = todoSchema.parse(data) // it will tell us whether that data is indeed that particular shape, once you've done that, you can use it and do something with the data 
+  })
+},[])
+
+  return (
+    <div>button</div>
+  )
+}
+
+
+
+
+
+//part 32
+//d.ts vs ts files and import types. type definition for global use across the project.
+
+// Feature	  .ts File	                   .d.ts File
+// Contains	  Executable code + types	     Only type declarations
+// Output	    Compiled to .js	             Never emitted to JS
+// Purpose	  Implementation	             Type definitions only
+
+//for example colors are related to the theme and can be used across several components. We need to define this outside this component. 
+
+//we can define this type in a file with .d.ts suffix and these files with these suffixes treated as declaration files also we can define these types in a file with .ts suffix. 
+
+
+// import React from 'react'
+
+// type Color = "red" | "blue" | "green"
+
+// export default function Button(props : Color) {
+//   return (
+//     <div>button</div>
+//   )
+// }
+
+
+{/*import React from 'react'
+// import {Color} from "@/app/lib/index" 
+//now this look like a normal javascript variable that I can import here so for solving this problem we can write type in front of it to make it clear that this is a typescript type and it remind us that we shouldn't treated as a normal javascript variable.
+
+import {type Color} from "@/app/lib/index" 
+
+ type ButtonProps = {
+  color : Color
+  size : string
+ }
+
+
+export default function Button(props : ButtonProps) {
+  return (
+    <div>button</div>
+  )
+}
+*/}
+
+
+
+
 
 //part 31 with page file
 //Generics of typescript in react
 //with generics we specifying a relationship,  the input is going to be of the same type as what you get in the output and instead of hard coding string or boolean, we make it more general with generics
-
+{/*
 import React from "react";
 
 // type ButtonProps = {
@@ -28,6 +191,10 @@ export default function Button<T>({
     </button>
   );
 }
+  */}
+
+
+
 
 //part 30
 //as
