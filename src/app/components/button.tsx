@@ -1,6 +1,48 @@
-//from part 31
+//from part 34
+
+//part 35
+//typescript + next.js
+// tsconfig file
+
+import React from "react";
+import { useState } from "react";
+
+type User = {
+  name: string;
+  email: string;
+};
+
+export default function Button() {
+  const [user, setUser] = useState<User | null>(null);
+  const name = user.name; // if we change the strict value in the tsconfig file from true to false the error gone
+
+  const fun = () => setUser({ name: "", email: "" });
+  return console.log(name, fun);
+}
 
 //part 34
+{
+  /* 
+import React from "react";
+
+type ButtonProps = {
+  // children: React.CSSProperties
+  children: React.ReactNode; //this is the type that we get from react. Where are these types coming from? node_modules => @types folder.  DefinitelyTyped Repository: this is a big collection of types for third party libraries. with this repository a lot of the most popular third party libraries like react and other ones get some types from this repository
+  //   Type definitions like React.ReactNode are part of the @types/react package , which originated from the DefinitelyTyped repository
+  // .
+  // While the TypeScript team provides the infrastructure for type definitions, they do not maintain the React-specific ones directly.
+  // The React team now collaborates with the DefinitelyTyped community to help maintain and improve these types for better accuracy and compatibility
+  // .
+  // So yes, it's a collaborative ecosystem : TypeScript enables the system, React uses it, and DefinitelyTyped serves as the distribution platform — with overlapping contributions from multiple teams.
+  // This collaborative model has allowed TypeScript to support a vast ecosystem of JavaScript libraries beyond just React, including Vue, Angular, Lodash, and many others
+  
+};
+
+export default function Button(props: ButtonProps) {
+  return <button> click me!</button>;
+}
+*/
+}
 
 //part 33
 //unknown type
@@ -33,8 +75,8 @@
 
 // let value: unknown;
 
-// value.toUpperCase(); // it gives error because we did operation on the unknown type
-// value.toFixed(2); // it gives error because we did operation on the unknown type
+// // value.toUpperCase(); // it gives error because we did operation on the unknown type
+// // value.toFixed(2); // it gives error because we did operation on the unknown type
 
 // if (typeof value === "string") {//You must first check the type:
 //   value.toUpperCase(); // ✅ OK
@@ -75,34 +117,21 @@
 //   )
 // }
 
-// use zod
-// import React from 'react'
-// import { useEffect } from 'react';
+// zod: it will tell us whether that data is indeed that particular shape, once you've done that, you can use it and do something with the data
+//1. TypeScript helps you while writing code
+// Catches mistakes in your logic
+// But once your app runs in the browser or on a server, TypeScript no longer exists — it gets compiled to plain JavaScript.
 
-// export default function Button() {
-// useEffect (()=> {
-//   fetch ("https://example.com/todos/1")
-//   .then((response)=> response.json())
-//   .then((data:unknown)=>{
-//     const todo = todoSchema.parse(data) // it will tell us whether that data is indeed that particular shape, once you've done that, you can use it and do something with the data
-//   })
-// },[])
+// 2. Zod ensures safety at runtime
+// With Zod, you validate the shape of the data when you receive it
 
-//   return (
-//     <div>button</div>
-//   )
-// }
-
+{
+  /*
 import React, { useEffect } from "react";
 import { z } from "zod";
 
 // 🔹 Define the expected shape of the data using Zod. todoSchema defines what a valid response looks like. You can think of this as a contract : “If you give me some data, I will only accept it if it has these fields and they are the right types.”
-// What does .parse() do?
-// It tries to validate the input (data) against the schema:
 
-// ✅ If it matches → returns a value of type { id: number; title: string; completed: boolean }
-// ❌ If it doesn't match → throws an error
-// This is the type guard at runtime , similar to how TypeScript enforces types at compile time.
 
 const todoSchema = z.object({
   id: z.number(),
@@ -191,6 +220,9 @@ export default function Button() {
 
   return <div>button</div>;
 }
+  */
+}
+// If you don't want to manually do this typing from any to unknown yourself, you can use ts-reset package from matt pocock, with this package it will make sure that whenever you fetch data, the data will automatically be of that unknown type
 
 //part 32
 //d.ts vs ts files and import types. type definition for global use across the project.
@@ -213,9 +245,9 @@ export default function Button() {
 //     <div>button</div>
 //   )
 // }
-
 {
-  /*import React from 'react'
+  /*}
+import React from 'react'
 // import {Color} from "@/app/lib/index" 
 //now this look like a normal javascript variable that I can import here so for solving this problem we can write type in front of it to make it clear that this is a typescript type and it remind us that we shouldn't treated as a normal javascript variable.
 
@@ -249,21 +281,22 @@ import React from "react";
 
 //the count value should be the same type as the count history
 
-type ButtonProps<T> = {
-  countValue: T;
-  countHistory: T[];// the history of the count values
-};
+// type ButtonProps<T> = {
+//   countValue: T;
+//   countHistory: T[];// the history of the count values
+// };
 
-export default function Button<T>({
-  countValue,
-  countHistory,
-}: ButtonProps<T>) {
-  return (
-    <button countValue={countValue} countHistory={countHistory}>
-      click me
-    </button>
-  );
-}
+// export default function Button<T>({
+
+//   countValue,
+//   countHistory,
+// }: ButtonProps<T>) {
+//   return (
+//     <button countValue={countValue} countHistory={countHistory}>
+//       click me
+//     </button>
+//   );
+// }
   */
 }
 
