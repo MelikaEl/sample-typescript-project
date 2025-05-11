@@ -1,9 +1,47 @@
 //from part 34
 
+//part 37
+//never type
+//in grok: https://grok.com/share/c2hhcmQtMg%3D%3D_e77eec21-f9c1-4d33-b633-e851ae7ba3fe
+{/* 
+type Animal = 'dog' | 'cat' | 'bird'; // Added 'bird'
+
+function makeSound(animal: Animal): string {
+    if (animal === 'dog') return 'Woof';
+    if (animal === 'cat') return 'Meow';
+    const _unreachable: never = animal; // TypeScript error
+    throw new Error('Unknown animal');
+}
+
+makeSound("dog")
+*/}
+
+type Animal = 'dog' | 'cat';
+
+function makeSound(animal: Animal): string {
+    if (animal === 'dog') return 'Woof';
+    // Removed: if (animal === 'cat') return 'Meow';
+    const _unreachable: never = animal; // TypeScript error
+    throw new Error('Unknown animal');
+}
+makeSound("dog")
+
+//part 36
+//next-env.d.ts file
+
+// the next-env.d.ts file is a crucial piece of the puzzle when you combine Next.js with TypeScript. Think of it as a declaration file that tells the TypeScript compiler about the types and ambient modules that are specific to the Next.js environment.
+
+// Here's a breakdown of its key uses:
+
+// Providing Type Definitions for Next.js Globals and Modules: Next.js introduces its own set of global variables, special modules (like next/router, next/link, next/image), and environment variables. TypeScript needs to know the types of these to provide proper type checking and autocompletion. next-env.d.ts typically contains type declarations for these Next.js specific elements.
+
+// The next plugin uses the type information: The next plugin, when active, leverages the type definitions provided by files like next-env.d.ts. This allows the plugin to perform more accurate and context-aware type checking and provide better code intelligence specifically for Next.js code.
+
+
 //part 35
 //typescript + next.js
 // tsconfig file
-
+{/* 
 import React from "react";
 import { useState } from "react";
 
@@ -20,9 +58,41 @@ export default function Button() {
   return console.log(name, fun);
 }
 
-//part 34
+*/}
+
 {
-  /* 
+  /*
+  It tells the TypeScript compiler how to take your .ts and .tsx files and transform them into JavaScript.
+
+   Specifying TypeScript files to compile: You can explicitly list the files or use glob patterns  in the include and exclude arrays to tell the compiler which files should be part of the compilation process. This helps you manage larger projects and avoid accidentally compiling unnecessary files.
+
+   Configuring compiler options: 
+
+   target: The ECMAScript version to which your TypeScript code should be down-leveled (e.g., es5, es2016, esnext). This ensures compatibility with your target JavaScript environment.   
+
+   strict: Enables a collection of strict type-checking options for better code quality and fewer runtime errors. This is highly recommended!
+
+   baseUrl and paths: These are incredibly useful in Next.js for setting up absolute imports. Instead of relative paths like ../../../components/Button, you can configure baseUrl to your project's root and then define paths to create cleaner imports like @/components/Button. Next.js respects these settings.
+
+
+
+"plugins": [
+  {
+    "name": "next"
+  }
+],
+Improved Type Safety for Next.js Specifics: This plugin understands Next.js's conventions and APIs. It can provide more accurate type checking and suggestions for things like:
+
+next/link: Ensuring the href prop is correctly typed and that you're passing valid route parameters.
+next/router: Providing better type hints and checks for router-related functions and properties.
+next/image: Offering improved type checking for the various props of the next/image component, such as src, width, height, and layout modes.
+Server-Side Rendering (SSR) and Server-Side Props (getServerSideProps): Potentially offering better type inference and checks related to data fetching and server-side logic.
+API Routes: Providing better type checking for request and response objects within your API routes.
+  */
+}
+
+//part 34
+{/*
 import React from "react";
 
 type ButtonProps = {
