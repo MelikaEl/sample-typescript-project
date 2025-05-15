@@ -1,21 +1,237 @@
-//from part 34
+// from part 39
+
+//part 41
+//Assertion Functions (qwen)
+
+//part 40
+{/* 
+//if statement (The Three Patterns Shown)
+// 1. typeof Type Guards (for primitives)
+const input = getUserInput();  // input: string | number
+
+if (typeof input === "string") {
+    // Within this block, TypeScript knows input must be string
+    input;  // type: string
+}
+// Works with JavaScript's typeof operator
+// Checks primitive types: "string", "number", "boolean", "symbol", "undefined", "object", "function"
+// After the check, TypeScript narrows the type within the block
+
+//2. "property" in object Checks (for objects)
+const input = getUserInput();  // input: string | { error: ... }
+
+// type ApiResponse = 
+//   | { data: string; timestamp: number }  // Success case
+//   | { error: { message: string; code: number }; status: "failed" }; // Error case
+
+if ("error" in input) {
+    // the error is object
+    input;  // type: { error: ... }
+}
+// Checks for property existence in objects
+// Useful when you have object types with different properties
+
+//3. Type Guard Functions (for custom checks)
+// Type Guard Functions in TypeScript: Advanced Examples
+// Type guard functions are custom functions that perform runtime checks and tell TypeScript to narrow types. They must return a type predicate in the form value is Type.
+// Basic Structure
+function isType(value: any): value is SpecificType {
+  // return boolean
+}
+// 1. Basic Type Guard
+interface Cat {
+  meow(): void;
+}
+interface Dog {
+  bark(): void;
+}
+
+function isCat(animal: Cat | Dog): animal is Cat {
+  return 'meow' in animal;
+}
+
+function handleAnimal(animal: Cat | Dog) {
+  if (isCat(animal)) {
+    animal.meow(); // TypeScript knows it's a Cat
+  } else {
+    animal.bark(); // TypeScript knows it's a Dog
+  }
+}
+
+*/}
+//part 39
+// Mapped Types in TypeScript
+
+// Mapped types are a powerful TypeScript feature that allows you to create new types by transforming properties of existing types. They work similarly to how `map` works for arrays, but for object types.
+
+// Basic Syntax
+
+// The basic syntax for a mapped type is:
+
+{/* 
+type NewType = {
+  [Property in ExistingType]: NewValueType;
+};
+
+//  4. Changing Property Types
+
+
+type Stringify<T> = {
+  [P in keyof T]: string; //This is a generic mapped type that transforms all properties of type T to have type string.
+};
+
+interface Person {
+  name: string;
+  age: number;
+  isAdmin: boolean;
+}
+
+type StringifiedPerson = Stringify<Person>;
+
+// The resulting StringifiedPerson type would be equivalent to:
+// {
+//   name: string;    // was string, remains string
+//   age: string;     // was number, now string
+//   isAdmin: string; // was boolean, now string
+// }
+
+// Common Use Cases
+
+//  1. Making All Properties Optional
+
+
+type Partial<T> = {
+  [P in keyof T]?: T[P];
+};
+
+//  2. Making All Properties Required
+
+
+type Required<T> = {
+  [P in keyof T]-?: T[P];
+};
+
+
+// 3. Making All Properties Readonly
+
+
+type Readonly<T> = {
+  readonly [P in keyof T]: T[P];
+};
+
+
+
+//  Built-in Mapped Types
+
+// TypeScript includes several useful mapped types:
+
+// 1. `Partial<T>` - Makes all properties optional
+// 2. `Required<T>` - Makes all properties required
+// Makes all properties of a type required (removes optionality).
+interface Config {
+  apiUrl?: string;
+  timeout?: number;
+}
+
+type RequiredConfig = Required<Config>;
+// Equivalent to:
+// {
+//   apiUrl: string;
+//   timeout: number;
+// }
+
+// 3. `Readonly<T>` - Makes all properties readonly
+// 4. `Pick<T, K>` - Selects specific properties
+// Creates a type by picking a set of properties from another type.
+type UserNameAndAge = Pick<User, 'name' | 'age'>;
+// Equivalent to:
+// {
+//   name: string;
+//   age: number;
+// }
+
+// 5. `Record<K, T>` - Creates a type with specified keys and value type
+// 6. `Omit<T, K>` - Excludes specified properties
+
+//  Example:
+
+interface User {
+  id: number;
+  name: string;
+  age?: number;
+}
+
+// Create a read-only version of User
+type ReadonlyUser = Readonly<User>;
+
+// Create a type where all properties are strings
+type UserStrings = {
+  [K in keyof User]: string;
+};
+
+// Create a type with getter methods
+type UserGetters = {
+  [K in keyof User as `get${Capitalize<K>}`]: () => User[K];
+};
+
+
+*/}
+
+
+
+//part 38 ######
+{/* 
+enum Direction {
+  North,
+  East,
+  South,
+  West
+}
+
+console.log(Direction.North); // Output: 0
+console.log(Direction.West);  // Output: 3
+
+
+enum Status {
+  Started = 1,
+  InProgress,
+  Completed
+}
+
+// console.log(Status.Started);     // Output: 1
+// console.log(Status.Completed);   // Output: 3
+
+enum HttpStatus {
+  NotFound = 404,
+  Success = 200,
+  Accepted = 202,
+  BadRequest = 400
+}
+
+console.log(HttpStatus.NotFound); // Output: 404
+console.log(HttpStatus.Success);  // Output: 200
+*/}
+
+
 
 //part 37
 //never type
 //in grok: https://grok.com/share/c2hhcmQtMg%3D%3D_e77eec21-f9c1-4d33-b633-e851ae7ba3fe
-{/* 
-type Animal = 'dog' | 'cat' | 'bird'; // Added 'bird'
 
-function makeSound(animal: Animal): string {
-    if (animal === 'dog') return 'Woof';
-    if (animal === 'cat') return 'Meow';
-    const _unreachable: never = animal; // TypeScript error
-    throw new Error('Unknown animal');
-}
+// type Animal = 'dog' | 'cat' | 'bird'; // Added 'bird'
 
-makeSound("dog")
-*/}
+// function makeSound(animal: Animal): string {
+//     if (animal === 'dog') return 'Woof';
+//     if (animal === 'cat') return 'Meow';
+//     const unreachable: never = animal; // TypeScript error
+//     console.log(unreachable)
+//     throw new Error('Unknown animal');
+// }
 
+// makeSound("bird")
+
+{
+  /* 
 type Animal = 'dog' | 'cat';
 
 function makeSound(animal: Animal): string {
@@ -25,7 +241,8 @@ function makeSound(animal: Animal): string {
     throw new Error('Unknown animal');
 }
 makeSound("dog")
-
+*/
+}
 //part 36
 //next-env.d.ts file
 
@@ -37,11 +254,11 @@ makeSound("dog")
 
 // The next plugin uses the type information: The next plugin, when active, leverages the type definitions provided by files like next-env.d.ts. This allows the plugin to perform more accurate and context-aware type checking and provide better code intelligence specifically for Next.js code.
 
-
 //part 35
 //typescript + next.js
 // tsconfig file
-{/* 
+{
+  /* 
 import React from "react";
 import { useState } from "react";
 
@@ -58,7 +275,8 @@ export default function Button() {
   return console.log(name, fun);
 }
 
-*/}
+*/
+}
 
 {
   /*
@@ -92,7 +310,8 @@ API Routes: Providing better type checking for request and response objects with
 }
 
 //part 34
-{/*
+{
+  /*
 import React from "react";
 
 type ButtonProps = {
@@ -114,7 +333,7 @@ export default function Button(props: ButtonProps) {
 */
 }
 
-//part 33
+//part 33   #####
 //unknown type
 
 // 1. unknown Type
@@ -229,11 +448,11 @@ const todoSchema = z.object({
 // });
 
 // // Type for compile-time typing
-// type Todo = {
-//   id: number;
-//   title: string;
-//   completed: boolean;
-// };
+type Todo = {
+  id: number;
+  title: string;
+  completed: boolean;
+};
 
 // With z.infer, you can remove the type Todo = { ... } entirely — it's inferred from the schema!
 
@@ -294,7 +513,7 @@ export default function Button() {
 }
 // If you don't want to manually do this typing from any to unknown yourself, you can use ts-reset package from matt pocock, with this package it will make sure that whenever you fetch data, the data will automatically be of that unknown type
 
-//part 32
+//part 32      ########
 //d.ts vs ts files and import types. type definition for global use across the project.
 
 // Feature	  .ts File	                   .d.ts File
@@ -337,7 +556,7 @@ export default function Button(props : ButtonProps) {
 */
 }
 
-//part 31 with page file
+//part 31 with page file     ########
 //Generics of typescript in react
 //with generics we specifying a relationship,  the input is going to be of the same type as what you get in the output and instead of hard coding string or boolean, we make it more general with generics
 {
@@ -351,10 +570,10 @@ import React from "react";
 
 //the count value should be the same type as the count history
 
-// type ButtonProps<T> = {
-//   countValue: T;
-//   countHistory: T[];// the history of the count values
-// };
+type ButtonProps<T> = {
+  countValue: T;
+  countHistory: T[];// the history of the count values
+};
 
 // export default function Button<T>({
 
@@ -370,13 +589,15 @@ import React from "react";
   */
 }
 
-//part 30
+//part 30   #######
 //as
 {
   /*
 import React, { useEffect } from "react";
 
 type ButtonColor = "red" | "blue" | "green";
+type ButtonColor = string | boolean | number;
+
 
 export default function Button() {
   // useEffect(() => {
@@ -402,7 +623,7 @@ export default function Button() {
 */
 }
 
-//part 29
+//part 29 #######
 //omit
 {
   /* 
@@ -427,7 +648,7 @@ export default function button(user : Guest) {
   */
 }
 
-//part 28
+//part 28  ###### 
 //as const
 //not using as const:  when we hover on the option, the typescript infers the type of that as string but after we used the (as const) the typescript infers the type as static definitions and read only
 //not using as const: when we hover on the buttonTextOptions, it shows us the type of it as string[] but after we used the (as const) the typescript infers the type as readonly ["Click me", "Click me again", "Click me one more time"] and it makes the array readonly.
@@ -469,6 +690,26 @@ export default function Button() {
 
 */
 }
+
+
+// Literal Types vs. Union Types in TypeScript
+// Literal Types
+// Literal types allow you to specify exact values as types. They come in three forms:
+
+// String Literal Types
+{/* 
+type Direction = "north" | "south" | "east" | "west";
+let move: Direction = "north"; // Only these exact strings allowed
+
+
+// Numeric Literal Types
+
+type DiceRoll = 1 | 2 | 3 | 4 | 5 | 6;
+let roll: DiceRoll = 3; // Only numbers 1-6 allowed
+*/}
+
+
+
 //part 27
 // useContext
 // take example from perplexity
@@ -533,7 +774,7 @@ React provides the specific type definitions that describe its own unique API an
 //part 23
 //for useEffect we don't have to assume type
 
-//part 22
+//part 22  ########
 // hooks
 // import React from 'react'
 
@@ -565,7 +806,7 @@ React provides the specific type definitions that describe its own unique API an
 //   )
 // }
 
-//part 21
+//part 21   #######
 // event handlers: onChange, onSubmit, onClick
 
 // import React from "react";
@@ -592,7 +833,7 @@ React provides the specific type definitions that describe its own unique API an
 //   );
 // }
 
-//part 20
+//part 20 #########
 // with interface we do the same thing as part 19 but with extend
 // import React from "react";
 
@@ -628,7 +869,8 @@ React provides the specific type definitions that describe its own unique API an
 //   );
 // }
 
-//part 19
+//part 19  #######
+// Intersection Types
 // if we have another component and want to define props for that component too but it has the props of the previous component too.
 // import React from "react";
 
@@ -717,7 +959,7 @@ React provides the specific type definitions that describe its own unique API an
 
 // export default Button;
 
-//part 16
+//part 16  #########
 //if we have hundreds of these attributes, and we don't want to pass all of them individually one by one, so we can use a helper type called Component.Props and in the <> (anchor tag) we define which element it should be. In TypeScript, you can use the ComponentProps utility type from React to get the props type of a specific component or element, such as a <button>.
 
 // import React, { ComponentProps } from "react";
@@ -758,7 +1000,7 @@ export default function Button({ type, autoFocus }: ButtonProps) {//we need to p
  */
 }
 
-//part14
+//part14   ######
 //difference between interface and type alias
 // import React from "react";
 
@@ -802,7 +1044,7 @@ export default function button({count=0}) {
 */
 }
 
-//part 12
+//part 12   ########
 // The Dispatch<React.SetStateAction<number>> type in your code is a TypeScript type that describes the signature of a state-updating function returned by the useState hook in React.
 // The Dispatch<React.SetStateAction<number>> type ensures that the setCount function is used correctly. It explicitly defines what kinds of arguments setCount can accept:
 
@@ -850,7 +1092,7 @@ export default function button({count=0}) {
 //   );
 // }
 
-//part11
+//part11   #######
 //JSX.Element is a TypeScript type that represents a valid JSX element (e.g., <div>, <span>, or custom components).
 
 {
@@ -870,7 +1112,7 @@ export default function Button({children}:ButtonProps) {
   */
 }
 
-//part10
+//part10  #######
 // a. Children Prop
 // The children prop is a built-in feature of React that allows you to pass content (text, elements, or components) between the opening and closing tags of a component.
 // In this example, the children prop is used to dynamically render the content inside the <button> element.
@@ -917,7 +1159,7 @@ export default function Button({children}:ButtonProps) {
 //   );
 // }
 
-//part 8
+//part 8   #########
 //if we want one prop for border radius
 // import React from "react";
 
@@ -925,6 +1167,14 @@ export default function Button({children}:ButtonProps) {
 //   borderRadius: Record<string, number>; // Record<string, number> allows us to pass any number of properties with string keys and number values
 
 //   backgroundColor: string;
+// };
+
+// type AppConfig = Record<string, string | number | boolean>;
+
+// const config: AppConfig = {
+//   apiUrl: "https://api.example.com",
+//   timeout: 5000,
+//   debugMode: true
 // };
 
 // export default function Button({ borderRadius,backgroundColor }: ButtonProps) {
@@ -942,7 +1192,7 @@ export default function Button({children}:ButtonProps) {
 //   );
 // }
 
-//part7
+//part7 #######
 // if we want one prop for border radius
 // import React from "react";
 
@@ -1047,37 +1297,52 @@ export default function Button({children}:ButtonProps) {
 //   );
 // }
 
-//part3
+//part3 #######
+{/* 
+ import React from "react";
 
-//  import React from "react";
+type Color = "red" | "blue" | "green" | "yellow" | "purple";
 
-// type Color = "red" | "blue" | "green" | "yellow" | "purple";
+type ButtonProps = {
+  backgroundColor: Color;
+  textColor: Color;
+  fontSize: number;
+  // pillShape?: boolean;
+  padding: [number, number, number, number]; //tuple of 4 numbers
+  // padding: number[]; //array of numbers: by this way we can pass any number of padding values but just we want 4 values
+};
 
-// type ButtonProps = {
-//   backgroundColor: Color;
-//   textColor: Color;
-//   fontSize: number;
-//   // pillShape?: boolean;
-//   padding: [number, number, number, number]; //tuple of 4 numbers
-//   // padding: number[]; //array of numbers: by this way we can pass any number of padding values but just we want 4 values
-// };
+// Tuples in TypeScript are a special kind of array type where:
 
-// export default function Button({
+// The length is fixed
 
-//   backgroundColor,
-//   fontSize,
-//   // pillShape,
-//   textColor,
-//   padding,
-// }: ButtonProps) {
-//   return (
-//     <div className="flex justify-center items-center h-screen">
-//       <button style={{ backgroundColor:backgroundColor, color: textColor , fontSize:fontSize,padding:`${padding[0]}px ${padding[1]}px ${padding[2]}px ${padding[3]}px`}} >
-//         Click me
-//       </button>
-//     </div>
-//   );
-// }
+// Each position has a specific type
+
+// Basic Tuple Syntax
+// typescript
+let userInfo: [string, number, boolean];
+userInfo = ["Alice", 30, true]; // Valid
+userInfo = [30, "Alice", true]; // Error - wrong types
+userInfo = ["Alice", 30]; // Error - missing element
+userInfo = ["Alice", 30, true, "extra"]; // Error - too many elements
+
+export default function Button({
+
+  backgroundColor,
+  fontSize,
+  // pillShape,
+  textColor,
+  padding,
+}: ButtonProps) {
+  return (
+    <div className="flex justify-center items-center h-screen">
+      <button style={{ backgroundColor:backgroundColor, color: textColor , fontSize:fontSize,padding:`${padding[0]}px ${padding[1]}px ${padding[2]}px ${padding[3]}px`}} >
+        Click me
+      </button>
+    </div>
+  );
+}
+*/}
 
 //part2
 
