@@ -1,8 +1,58 @@
 // from part 42
 
+//part 45
+//Type from Func Return
+
+function createFixtures() {
+  return {
+    x: 1,
+    y: 2,
+  };
+}
+
+type Fixtures = ReturnType<typeof createFixtures>;
+
+// createFixtures is a function that returns an object with two properties:
+// x: number
+// y: number
+// Using typeof createFixtures, TypeScript infers the type of the function createFixtures.
+// The ReturnType utility type extracts the return type of the function. In this case, the return type is:
+
+// {
+//   x: number;
+//   y: number;
+// }
+
+// The resulting type Fixtures is exactly the same as the inferred return type of createFixtures.
+
+
+//part 44
+{/* 
+// Type from Value
+// The cheat sheet shows an example of deriving a type from a value:
+const data = { small: 1, medium: 2, large: 3 };
+type Size = typeof data;
+
+// Explanation:
+// data is an object with three properties:
+// small: number
+// medium: number
+// large: number
+// Using typeof data, TypeScript infers the type of data as:
+// {
+//   small: number;
+//   medium: number;
+//   large: number;
+// }
+
+// The resulting type Size is exactly the same as the inferred type of data.
+*/}
+
+
 //part 43
 //Type Indexing
 //You can use square bracket notation ([]) to access a property by its key and get its type.
+{/* 
 type Person = {
   name: string;
   age: number;
@@ -10,7 +60,7 @@ type Person = {
 
 // Get the type of the 'name' property
 type NameType = Person["name"]; // string   Here, Person["name"] extracts the type of the name property, which is string.
-
+*/}
 
 //part 42
 //Discriminated Union
