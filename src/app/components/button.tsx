@@ -1,8 +1,20 @@
 // from part 42
 
+//part 46
+//Template Union Types
+type SupportedLangs = "en" | "pt" | "zh";
+type FooterLocaleIDs = "header" | "footer";
+
+type AllLocaleIDs = `${SupportedLangs}_${FooterLocaleIDs}`;
+
+//AllLocaleIDs : A new union type generated using a template string:
+// The template string ${SupportedLangs}_${FooterLocaleIDs} combines every possible value from SupportedLangs with every possible value from FooterLocaleIDs, separated by an underscore (_).
+// The resulting AllLocaleIDs type is:
+// "en_header" | "en_footer" | "pt_header" | "pt_footer" | "zh_header" | "zh_footer"
+
 //part 45
 //Type from Func Return
-
+{/* 
 function createFixtures() {
   return {
     x: 1,
@@ -24,7 +36,7 @@ type Fixtures = ReturnType<typeof createFixtures>;
 // }
 
 // The resulting type Fixtures is exactly the same as the inferred return type of createFixtures.
-
+*/}
 
 //part 44
 {/* 
