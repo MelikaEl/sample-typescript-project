@@ -1,4 +1,127 @@
-// from part 39
+// from part 42
+
+
+//part 42
+//Discriminated Union
+// Discriminated unions are a powerful pattern in TypeScript that allows you to model values that can be one of several types, with type-safe handling based on a common literal property (called the discriminant ).
+
+// They are especially useful when dealing with state management or data structures where different kinds of data can appear in different forms.
+
+// ✅ Key Concepts
+// A discriminated union consists of:
+
+// A common property (usually a string or numeric literal type) used to differentiate between the types.
+// Each variant of the union has a different literal value for that discriminant.
+// TypeScript uses this discriminant to narrow the type within conditional blocks.
+
+// 🚫 Problem Without Discriminated Unions
+// Let’s say we have two types of users: User and Admin.
+
+// ❌ Regular Union (No Discriminant)
+interface User {
+  name: string;
+  email: string;
+}
+
+interface Admin {
+  name: string;
+  privileges: string[];
+}
+
+type Person = User | Admin;
+
+const ProfileCard = ({ person }: { person: Person }) => {
+  return (
+    <div>
+      <h2>{person.name}</h2>
+     
+      {/* ❌ ERROR: Property 'email' does not exist on type 'Person'. */}
+      {person.email && <p>Email: {person.email}</p>}
+      {/* {'email' in person && <p>Email: {person.email}</p>} */}
+
+      {/* ❌ ERROR: Property 'privileges' does not exist on type 'Person'. */}
+      {person.privileges && <p>Privileges: {person.privileges.join(', ')}</p>}
+    </div>
+  );
+};
+
+// TypeScript will throw errors because it doesn't know which variant of Person we're working with. You'd have to use type guards , but even then, they’re not always reliable or clean.
+
+// You might try runtime checks like:
+if ('email' in person) {   {/* {'email' in person && <p>Email: {person.email}</p>} */}
+  // treat as User
+}
+// But this is fragile and scales poorly if more variants are added later.
+
+
+// ✅ Solution With Discriminated Unions
+// We solve this by adding a common discriminant property — usually called type.
+
+// ✅ Define with Discriminant (type)
+interface User {
+  type: 'user';
+  name: string;
+  email: string;
+}
+
+interface Admin {
+  type: 'admin';
+  name: string;
+  privileges: string[];
+}
+
+type Person = User | Admin;
+
+const ProfileCard = ({ person }: { person: Person }) => {
+  return (
+    <div>
+      <h2>{person.name}</h2>
+
+      {person.type === 'user' && (
+        <p>Email: {person.email}</p>
+      )}
+
+      {person.type === 'admin' && (
+        <p>Privileges: {person.privileges.join(', ')}</p>
+      )}
+    </div>
+  );
+};
+
+// ✅ No errors!
+// ✅ TypeScript knows exactly what properties are available based on the type.
+// ✅ This is safe, scalable, and readable.
+
+//  Why This Matters in React Apps
+// In real-world React apps, you often deal with:
+
+// Multiple user roles (e.g., User, Admin)
+// Different API response states (loading, success, error)
+// Complex form states (editing, submitting, submitted, error)
+// UI variations (e.g., different kinds of alerts or cards)
+// Using discriminated unions ensures your components behave correctly for each case, and TypeScript helps enforce that correctness.
+
+// 🛠️ Bonus: Exhaustiveness Check
+// To make sure you handle all cases, add an exhaustiveness check using never:
+
+function logPersonDetails(person: Person) {
+  switch (person.type) {
+    case 'user':
+      console.log('User:', person.email);
+      break;
+    case 'admin':
+      console.log('Admin:', person.privileges);
+      break;
+    default:
+      const _exhaustiveCheck: never = person;
+      return _exhaustiveCheck;
+  }
+}
+
+// If you add another type to Person without updating this function, TypeScript will warn you!
+
+
+
 
 //part 41
 {/* 
@@ -124,6 +247,21 @@ if ("error" in input) {
 // Useful when you have object types with different properties
 
 //3. Type Guard Functions (for custom checks)
+
+Type Guard Functions (for custom checks)
+typescript
+const input = getUserInput();  // input: number | number[]
+
+if (Array.isArray(input)) {
+    // Within this block, TypeScript knows input must be an array
+    input;  // type: number[]
+}
+
+Uses functions that return type predicates (val is Type)
+TypeScript understands many built-in guards like Array.isArray()
+You can write your own custom type guards
+
+
 // Type Guard Functions in TypeScript: Advanced Examples
 // Type guard functions are custom functions that perform runtime checks and tell TypeScript to narrow types. They must return a type predicate in the form value is Type.
 // Basic Structure
@@ -160,7 +298,7 @@ function handleAnimal(animal: Cat | Dog) {
 
 // The basic syntax for a mapped type is:
 
-{/* 
+{/*
 type NewType = {
   [Property in ExistingType]: NewValueType;
 };
@@ -260,12 +398,6 @@ type ReadonlyUser = Readonly<User>;
 type UserStrings = {
   [K in keyof User]: string;
 };
-
-// Create a type with getter methods
-type UserGetters = {
-  [K in keyof User as `get${Capitalize<K>}`]: () => User[K];
-};
-
 
 */}
 
