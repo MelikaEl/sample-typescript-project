@@ -1,7 +1,39 @@
 // from part 42
 
+//part 47
+//Conditional Types
+// What Are Conditional Types?
+// Conditional types allow you to define types based on type predicates (conditions). They are similar to if statements in code but operate at the type level . The syntax for conditional types is:
+
+// type ConditionalType = Type extends Condition ? TrueType : FalseType;
+
+// Type: The type being checked.
+// Condition: The condition to check against.
+// TrueType: The resulting type if the condition is true.
+// FalseType: The resulting type if the condition is false.
+
+type HasFourLegs<Animal> =
+  Animal extends { legs: 4 } ? Animal : never;
+
+//   Explanation:
+// HasFourLegs<Animal> : A generic type that takes a type parameter Animal.
+// Animal extends { legs: 4 } : Checks if the Animal type has a property legs with the value 4.
+// If Animal satisfies this condition, it means the animal has four legs.
+// ? Animal : If the condition is true, the resulting type is Animal.
+// : never : If the condition is false, the resulting type is never, indicating that the type doesn't match the condition.
+
+type Dog = { name: string; legs: 4 };
+type Bird = { name: string; legs: 2 };
+
+type FourLeggedDog = HasFourLegs<Dog>; // Dog
+type TwoLeggedBird = HasFourLegs<Bird>; // never
+
+// Dog has legs: 4, so HasFourLegs<Dog> evaluates to Dog.
+// Bird has legs: 2, so HasFourLegs<Bird> evaluates to never.
+
 //part 46
 //Template Union Types
+{/* 
 type SupportedLangs = "en" | "pt" | "zh";
 type FooterLocaleIDs = "header" | "footer";
 
@@ -11,6 +43,7 @@ type AllLocaleIDs = `${SupportedLangs}_${FooterLocaleIDs}`;
 // The template string ${SupportedLangs}_${FooterLocaleIDs} combines every possible value from SupportedLangs with every possible value from FooterLocaleIDs, separated by an underscore (_).
 // The resulting AllLocaleIDs type is:
 // "en_header" | "en_footer" | "pt_header" | "pt_footer" | "zh_header" | "zh_footer"
+*/}
 
 //part 45
 //Type from Func Return
