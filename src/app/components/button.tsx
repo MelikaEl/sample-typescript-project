@@ -1,5 +1,35 @@
 // from part 42
 
+//part 48
+//Over Loads
+// The Overloads section in your TypeScript cheat sheet shows how to define multiple function signatures for the same function name. This is known as function overloading , and it allows a function to accept different types or numbers of arguments, and return different types accordingly — while keeping your code type-safe and expressive .
+
+interface Expect {
+  (matcher: boolean): string;
+  (matcher: string): boolean;
+}
+
+//function expect(matcher: boolean): string;
+// function expect(matcher: string): boolean;
+
+// This tells TypeScript:
+
+// If you pass a boolean, it returns a string.
+// If you pass a string, it returns a boolean.
+
+// This defines an interface with two call signatures , meaning that a function assigned to this interface must behave differently depending on the input type.
+
+const expect : Expect = ((matcher: boolean | string): string | boolean => {
+  if (typeof matcher === 'boolean') {
+    return matcher ? 'Passed' : 'Failed';
+  } else {
+    return matcher.length > 0;
+  }
+}) as Expect;
+
+expect(true);   // returns string
+expect('hello'); // returns boolean
+ 
 //part 47
 //Conditional Types
 // What Are Conditional Types?
@@ -11,7 +41,7 @@
 // Condition: The condition to check against.
 // TrueType: The resulting type if the condition is true.
 // FalseType: The resulting type if the condition is false.
-
+{/* 
 type HasFourLegs<Animal> =
   Animal extends { legs: 4 } ? Animal : never;
 
@@ -30,6 +60,9 @@ type TwoLeggedBird = HasFourLegs<Bird>; // never
 
 // Dog has legs: 4, so HasFourLegs<Dog> evaluates to Dog.
 // Bird has legs: 2, so HasFourLegs<Bird> evaluates to never.
+*/}
+
+
 
 //part 46
 //Template Union Types
@@ -124,7 +157,7 @@ type NameType = Person["name"]; // string   Here, Person["name"] extracts the ty
 // Let’s say we have two types of users: User and Admin.
 
 // ❌ Regular Union (No Discriminant)
-{/* 
+{/*
 interface User {
   name: string;
   email: string;
@@ -144,7 +177,7 @@ const ProfileCard = ({ person }: { person: Person }) => {
      
       //  ❌ ERROR: Property 'email' does not exist on type 'Person'. 
       {person.email && <p>Email: {person.email}</p>}
-      //  {'email' in person && <p>Email: {person.email}</p>} 
+       // {'email' in person && <p>Email: {person.email}</p>} 
 
       //  ❌ ERROR: Property 'privileges' does not exist on type 'Person'. 
       {person.privileges && <p>Privileges: {person.privileges.join(', ')}</p>}
@@ -177,7 +210,8 @@ interface Admin {
   privileges: string[];
 }
 
-type Person = User | Admin;
+
+type Person = User | Admin ;
 
 const ProfileCard = ({ person }: { person: Person }) => {
   return (
@@ -548,16 +582,16 @@ console.log(HttpStatus.Success);  // Output: 200
 //part 37
 //never type
 //in grok: https://grok.com/share/c2hhcmQtMg%3D%3D_e77eec21-f9c1-4d33-b633-e851ae7ba3fe
-
+{/*
 // type Animal = 'dog' | 'cat' | 'bird'; // Added 'bird'
 
-// function makeSound(animal: Animal): string {
-//     if (animal === 'dog') return 'Woof';
-//     if (animal === 'cat') return 'Meow';
-//     const unreachable: never = animal; // TypeScript error
-//     console.log(unreachable)
-//     throw new Error('Unknown animal');
-// }
+function makeSound(animal: Animal): string {
+    if (animal === 'dog') return 'Woof';
+    if (animal === 'cat') return 'Meow';
+    const unreachable: never = animal; // TypeScript error
+    console.log(unreachable)
+    throw new Error('Unknown animal');
+}
 
 // makeSound("bird")
 
