@@ -1,5 +1,16 @@
 // from part 42
 
+//part 43
+//Type Indexing
+//You can use square bracket notation ([]) to access a property by its key and get its type.
+type Person = {
+  name: string;
+  age: number;
+};
+
+// Get the type of the 'name' property
+type NameType = Person["name"]; // string   Here, Person["name"] extracts the type of the name property, which is string.
+
 
 //part 42
 //Discriminated Union
@@ -18,6 +29,7 @@
 // Let’s say we have two types of users: User and Admin.
 
 // ❌ Regular Union (No Discriminant)
+{/* 
 interface User {
   name: string;
   email: string;
@@ -35,11 +47,11 @@ const ProfileCard = ({ person }: { person: Person }) => {
     <div>
       <h2>{person.name}</h2>
      
-      {/* ❌ ERROR: Property 'email' does not exist on type 'Person'. */}
+      //  ❌ ERROR: Property 'email' does not exist on type 'Person'. 
       {person.email && <p>Email: {person.email}</p>}
-      {/* {'email' in person && <p>Email: {person.email}</p>} */}
+      //  {'email' in person && <p>Email: {person.email}</p>} 
 
-      {/* ❌ ERROR: Property 'privileges' does not exist on type 'Person'. */}
+      //  ❌ ERROR: Property 'privileges' does not exist on type 'Person'. 
       {person.privileges && <p>Privileges: {person.privileges.join(', ')}</p>}
     </div>
   );
@@ -48,7 +60,7 @@ const ProfileCard = ({ person }: { person: Person }) => {
 // TypeScript will throw errors because it doesn't know which variant of Person we're working with. You'd have to use type guards , but even then, they’re not always reliable or clean.
 
 // You might try runtime checks like:
-if ('email' in person) {   {/* {'email' in person && <p>Email: {person.email}</p>} */}
+if ('email' in person) {   //{'email' in person && <p>Email: {person.email}</p>} 
   // treat as User
 }
 // But this is fragile and scales poorly if more variants are added later.
@@ -119,7 +131,7 @@ function logPersonDetails(person: Person) {
 }
 
 // If you add another type to Person without updating this function, TypeScript will warn you!
-
+*/}
 
 
 
